@@ -38,6 +38,8 @@ namespace njuTV_win10
                 {
                     MainPage.Current.PlayerShowOrNot(Visibility.Collapsed);
                     MediaPlayer.Pause();
+                    SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
+                    ApplicationView.GetForCurrentView().Title = "";
                 };
         }
 
@@ -52,6 +54,23 @@ namespace njuTV_win10
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PlayingInfo)));
                 var view = ApplicationView.GetForCurrentView();
                 view.Title = playinginfo.Name;
+                if(value.Avaliable)
+                {
+                    ErrorPanel.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    ErrorPanel.Visibility = Visibility.Visible;
+                    var currentFetcher = TVInfoShowerControl.Current.WebFetcher;
+                    if (!currentFetcher.InSchoolState)
+                    {
+                        ErrorInfo.Text = "没有校园网,无法读取 tv.nju.edu.cn ";
+                    }
+                    else
+                    {
+                        ErrorInfo.Text = "当前视频源不可用 请尝试刷新或等待学校修复";
+                    }                        
+                }
             }
         }
 

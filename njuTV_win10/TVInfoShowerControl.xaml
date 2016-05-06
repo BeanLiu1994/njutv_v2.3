@@ -10,14 +10,11 @@
     d:DesignWidth="400">
     <UserControl.Resources>
         <DataTemplate x:Name="TVInfoTemplate" x:DataType="local:TVInfo">
-            <StackPanel Height="240" Width="300">
-                <StackPanel Orientation="Horizontal" Margin="10">
-                    <TextBlock Text="{x:Bind Path=Name,Mode=OneWay}"/>
-                    <TextBlock Text="{x:Bind Path=Avaliable,Mode=OneWay}"/>
-                </StackPanel>
-                <!--用做封面-->
-                <MediaElement AutoPlay="False" Source="{x:Bind Path=URL,Mode=OneWay}" Stretch="Uniform" Margin="10"/>
-            </StackPanel>
+            <local:ShowOneItem
+                Avaliable="{x:Bind Path=Avaliable,Mode=OneWay}" 
+                Title="{x:Bind Path=Name,Mode=OneWay}" 
+                URL="{x:Bind Path=URL,Mode=OneWay}"
+                />
         </DataTemplate>
     </UserControl.Resources>
     <Grid>

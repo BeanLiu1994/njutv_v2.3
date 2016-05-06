@@ -75,8 +75,8 @@ namespace njuTV_win10
         public async Task<bool> RefreshWebState()
         {
             Debug.Write("[TVurlFetcher: 检测网络...]");
-            bool InSchoolState = (await InSchoolChecker.TestConnection()).Value;
-            bool CurrentWebState = (await WebChecker.TestConnection()).Value;
+            InSchoolState = (await InSchoolChecker.TestConnection()).Value;
+            CurrentWebState = (await WebChecker.TestConnection()).Value;
 
             if (CurrentWebState)
             {

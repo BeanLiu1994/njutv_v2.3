@@ -21,10 +21,12 @@ namespace njuTV_win10
 {
     public sealed partial class TVInfoShowerControl : UserControl,INotifyPropertyChanged
     {
+        public static TVInfoShowerControl Current;
         public TVurlFetcher WebFetcher { get; private set; }
         public TVInfoShowerControl()
         {
             this.InitializeComponent();
+            Current = this;
             WebFetcher = new TVurlFetcher();
             TVInfoItems = WebFetcher.TVFetchedInfo;
         }

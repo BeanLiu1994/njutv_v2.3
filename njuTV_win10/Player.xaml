@@ -484,5 +484,9 @@
                 <MediaTransportControls Name="MediaPlayerTransportControl" IsSeekEnabled="False" IsSeekBarVisible="False" IsZoomButtonVisible="False" IsZoomEnabled="False" IsCompact="True"  Style="{StaticResource MyMediaTransportControlStyle}"/>
             </MediaElement.TransportControls>
         </MediaElement>
+        <StackPanel Name="ErrorPanel" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <FontIcon Glyph="&#xE8CD;" FontSize="50" Foreground="{ThemeResource SystemControlForegroundAccentBrush}"/>
+            <TextBlock Name="ErrorInfo" TextWrapping="Wrap" FontSize="24" Margin="10"/>
+        </StackPanel>
     </Grid>
 </Page>
