@@ -1,0 +1,26 @@
+﻿<UserControl
+    x:Class="njuTV_win10.TVInfoShowerControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:njuTV_win10"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400">
+    <UserControl.Resources>
+        <DataTemplate x:Name="TVInfoTemplate" x:DataType="local:TVInfo">
+            <StackPanel Height="240" Width="300">
+                <StackPanel Orientation="Horizontal" Margin="10">
+                    <TextBlock Text="{x:Bind Path=Name,Mode=OneWay}"/>
+                    <TextBlock Text="{x:Bind Path=Avaliable,Mode=OneWay}"/>
+                </StackPanel>
+                <!--用做封面-->
+                <MediaElement AutoPlay="False" Source="{x:Bind Path=URL,Mode=OneWay}" Stretch="Uniform" Margin="10"/>
+            </StackPanel>
+        </DataTemplate>
+    </UserControl.Resources>
+    <Grid>
+        <GridView ItemTemplate="{StaticResource TVInfoTemplate}" ItemsSource="{x:Bind Path=TVInfoItems,Mode=OneWay}" ItemClick="ItemClicked" SelectionMode="None" IsItemClickEnabled="True" />
+    </Grid>
+</UserControl>
