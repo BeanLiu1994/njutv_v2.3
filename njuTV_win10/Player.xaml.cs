@@ -32,7 +32,6 @@ namespace njuTV_win10
         {
             this.InitializeComponent();
             Current = this;
-            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
             SystemNavigationManager.GetForCurrentView().BackRequested +=
                 (s, e) =>
                 {
@@ -52,6 +51,7 @@ namespace njuTV_win10
             {
                 playinginfo = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PlayingInfo)));
+                SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
                 var view = ApplicationView.GetForCurrentView();
                 view.Title = playinginfo.Name;
                 if(value.Avaliable)
