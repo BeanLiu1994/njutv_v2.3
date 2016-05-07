@@ -36,7 +36,7 @@ namespace njuTV_win10
                 (s, e) =>
                 {
                     MainPage.Current.PlayerShowOrNot(Visibility.Collapsed);
-                    MediaPlayer.Pause();
+                    MediaPlayer.Stop();
                     SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
                     ApplicationView.GetForCurrentView().Title = "";
                 };
@@ -57,6 +57,7 @@ namespace njuTV_win10
                 if(value.Avaliable)
                 {
                     ErrorPanel.Visibility = Visibility.Collapsed;
+                    MediaPlayer.Play();
                 }
                 else
                 {
@@ -109,6 +110,11 @@ namespace njuTV_win10
             //Storyboard.SetTargetProperty(daY, "X");
             //s.Children.Add(daY);
             //s.Begin();
+        }
+
+        private void MediaFailedEventHandler(object sender, ExceptionRoutedEventArgs e)
+        {
+            ErrorPanel.Visibility = Visibility.Visible;
         }
     }
 }

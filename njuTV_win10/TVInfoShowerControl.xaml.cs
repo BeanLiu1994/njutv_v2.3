@@ -30,6 +30,12 @@ namespace njuTV_win10
             WebFetcher = new TVurlFetcher();
             TVInfoItems = WebFetcher.TVFetchedInfo;
         }
+        
+        public async void Refresh()
+        {
+            TVInfoItems.Clear();
+            await WebFetcher.RefreshWebState();
+        }
         private ObservableCollection<TVInfo> tvinfoitems;
         public ObservableCollection<TVInfo> TVInfoItems
         {

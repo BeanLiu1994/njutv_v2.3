@@ -9,18 +9,18 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <Grid Height="160" Width="200">
+    <Grid Height="133" Width="200" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
-            <TextBlock Name="TitleUI" Margin="20,0,0,0"/>
-            <TextBlock Name="SubTitleUI" Margin="10,0"/>
+        <StackPanel Orientation="Horizontal" Grid.Row="1">
+            <TextBlock Name="TitleUI" Margin="5,0"/>
+            <TextBlock Name="SubTitleUI" Margin="5,0"/>
         </StackPanel>
         <!--用做封面-->
-        <Grid Name="ContentPresenterGrid" Grid.Row="1" Margin="10">
-            <MediaElement Name="MedaElementThumbnail" AutoPlay="False" Stretch="Uniform"/>
+        <Grid Name="ContentPresenterGrid">
+            <MediaElement Name="MediaElementThumbnail" AutoPlay="False" Stretch="Uniform" MediaOpened="LoadedThenStop" Volume="0"/>
             <StackPanel Name="ErrorPanel" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <FontIcon Glyph="&#xE711;" FontSize="40" Foreground="Crimson"/>
                 <TextBlock Text="链接失效" FontSize="20"/>

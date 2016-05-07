@@ -46,7 +46,7 @@ namespace njuTV_win10
             set { avaliable = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Avaliable))); }
         }
     }
-    public class TVurlFetcher
+    public class TVurlFetcher:INotifyPropertyChanged
     {
         public static bool VerifyURL(string InURL)
         {
@@ -58,9 +58,15 @@ namespace njuTV_win10
         }
 
 
-        public ObservableCollection<TVInfo> TVFetchedInfo = new ObservableCollection<TVInfo>();
+        private ObservableCollection<TVInfo> tvfetchedinfo;
+        public ObservableCollection<TVInfo> TVFetchedInfo
+        {
+            get { return tvfetchedinfo; }
+            set { tvfetchedinfo = value;PropertyChanged?.Invoke(this,new PropertyChangedEventArgs(nameof(TVFetchedInfo))); }
+        }
         public TVurlFetcher()
         {
+            TVFetchedInfo = new ObservableCollection<TVInfo>();
             RefreshWebState();
         }
 
@@ -68,6 +74,9 @@ namespace njuTV_win10
         const string Source = "http://tv.nju.edu.cn";
         private static ConnectivityChecker InSchoolChecker = new ConnectivityChecker(SchoolVerify);
         private static ConnectivityChecker WebChecker = new ConnectivityChecker(Source);
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public bool CurrentWebState { get; private set; }
         public bool InSchoolState { get; private set; }
         public bool AnalyseState { get; private set; }

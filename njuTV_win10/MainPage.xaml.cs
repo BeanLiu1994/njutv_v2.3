@@ -34,5 +34,10 @@ namespace njuTV_win10
         {
             PlayerFrame.Visibility = _vis;
         }
+
+        private void RefreshButton_Click(object sender, RoutedEventArgs e)
+        {
+            TVInfoPanel.Refresh();
+        }
     }
 }

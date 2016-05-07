@@ -47,7 +47,7 @@ namespace njuTV_win10
             {
                 url = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(URL)));
-                MedaElementThumbnail.Source = new Uri(value);
+                MediaElementThumbnail.Source = new Uri(value);
             }
         }
         private bool avaliable;
@@ -73,6 +73,11 @@ namespace njuTV_win10
                     ContentPresenterGrid.BorderBrush = new SolidColorBrush(Colors.Crimson);
                 }
             }
+        }
+
+        private void LoadedThenStop(object sender, RoutedEventArgs e)
+        {
+            MediaElementThumbnail.Pause(); 
         }
     }
 }
