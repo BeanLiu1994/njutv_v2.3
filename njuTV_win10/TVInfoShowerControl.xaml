@@ -9,25 +9,30 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
     <UserControl.Resources>
-        <DataTemplate x:Name="TVInfoTemplate_HasPreview" x:DataType="local:TVInfo">
+        <DataTemplate x:Name="TVInfoTemplate" x:DataType="local:TVInfo">
             <local:ShowOneItem
                 Avaliable="{x:Bind Path=Avaliable,Mode=OneWay}" 
                 Title="{x:Bind Path=Name,Mode=OneWay}" 
                 URL="{x:Bind Path=URL,Mode=OneWay}"
-                PreviewEnabled="True"
-                />
-        </DataTemplate>
-        <DataTemplate x:Name="TVInfoTemplate_NoPreview" x:DataType="local:TVInfo">
-            <local:ShowOneItem
-                Avaliable="{x:Bind Path=Avaliable,Mode=OneWay}" 
-                Title="{x:Bind Path=Name,Mode=OneWay}" 
-                URL="{x:Bind Path=URL,Mode=OneWay}"
-                PreviewEnabled="false"
                 />
         </DataTemplate>
     </UserControl.Resources>
     <Grid>
-        <GridView Name="HasPreview" ItemTemplate="{StaticResource TVInfoTemplate_HasPreview}" ItemsSource="{x:Bind Path=TVInfoItems,Mode=OneWay}" ItemClick="ItemClicked" SelectionMode="None" IsItemClickEnabled="True" />
-        <ListView Name="NoPreview" ItemTemplate="{StaticResource TVInfoTemplate_NoPreview}" ItemsSource="{x:Bind Path=TVInfoItems,Mode=OneWay}" ItemClick="ItemClicked" SelectionMode="None" IsItemClickEnabled="True" />
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="PreviewSetting">
+                <VisualState x:Name="PreviewOn">
+                    <VisualState.Setters>
+                        <Setter Target="HasPreview.IsEnabled" Value="True"/>
+                        <Setter Target="HasPreview.Visibility" Value="Visible"/>
+                        <Setter Target="NoPreview.IsEnabled" Value="False"/>
+                        <Setter Target="NoPreview.Visibility" Value="Collapsed"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="PreviewOff">
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <GridView Name="HasPreview" IsEnabled="False" Visibility="Collapsed" ItemTemplate="{StaticResource TVInfoTemplate}" ItemsSource="{x:Bind Path=TVInfoItems,Mode=OneWay}" ItemClick="ItemClicked" SelectionMode="None" IsItemClickEnabled="True" />
+        <ListView Name="NoPreview" ItemTemplate="{StaticResource TVInfoTemplate}" ItemsSource="{x:Bind Path=TVInfoItems,Mode=OneWay}" ItemClick="ItemClicked" SelectionMode="None" IsItemClickEnabled="True" />
     </Grid>
 </UserControl>

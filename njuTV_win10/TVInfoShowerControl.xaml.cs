@@ -33,19 +33,9 @@ namespace njuTV_win10
         public void SetPreviewMode(bool Previewsetting)
         {
             if(Previewsetting)
-            {
-                HasPreview.IsEnabled = true;
-                HasPreview.Visibility = Visibility.Visible;
-                NoPreview.IsEnabled = false;
-                NoPreview.Visibility = Visibility.Collapsed;
-            }
+                VisualStateManager.GoToState(this, "PreviewOn", true);
             else
-            {
-                NoPreview.IsEnabled = true;
-                NoPreview.Visibility = Visibility.Visible;
-                HasPreview.IsEnabled = false;
-                HasPreview.Visibility = Visibility.Collapsed;
-            }
+                VisualStateManager.GoToState(this, "PreviewOff", true);
         }
         
         public async void Refresh()

@@ -14,8 +14,8 @@
             <VisualStateGroup x:Name="PreviewSetting">
                 <VisualState x:Name="PreviewOn">
                     <VisualState.Setters>
-                        <Setter Target="RootGrid.Width" Value="200"/>
-                        <Setter Target="RootGrid.Height" Value="133"/>
+                        <Setter Target="RootGrid.MaxWidth" Value="200"/>
+                        <Setter Target="RootGrid.MaxHeight" Value="133"/>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="PreviewOff">

@@ -75,25 +75,6 @@ namespace njuTV_win10
                 }
             }
         }
-        private bool previewenabled;
-        public bool PreviewEnabled
-        {
-            get { return previewenabled; }
-            set
-            {
-                previewenabled = value;
-                MediaElementThumbnail.IsEnabled = value;
-                if(value)
-                {
-                    Height = 133; Width = 200;
-                }
-                else
-                {
-                }
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PreviewEnabled)));
-            }
-        }
-
         public async void SetSource(Uri inputUri)
         {
             var SS_L = new SettingSaver_Local();
