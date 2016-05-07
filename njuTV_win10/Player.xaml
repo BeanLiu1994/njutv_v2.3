@@ -364,7 +364,7 @@
                                 </VisualStateGroup>
                             </VisualStateManager.VisualStateGroups>
                             <Border x:Name="ControlPanel_ControlPanelVisibilityStates_Border">
-                                <Grid x:Name="ControlPanelGrid" Background="{ThemeResource SystemControlBackgroundChromeMediumBrush}" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Bottom">
+                                <Grid x:Name="ControlPanelGrid" Background="{ThemeResource SystemControlBackgroundAltMediumLowBrush}" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Bottom">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto"/>
                                         <ColumnDefinition Width="*"/>
