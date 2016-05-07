@@ -122,6 +122,25 @@ namespace njuTV_win10
             currentConfig.IsPreviewOn = Toggled;
             TVInfoPanel.Refresh();
         }
+        private void AutoPlayEnableButton_Click(object sender, RoutedEventArgs e)
+        {
+            var theButton = sender as AppBarToggleButton;
+            var Toggled = (theButton.IsChecked.Value);
+            if (Toggled)
+            {
+                // warning
+                theButton.Label = "停止播放";
+            }
+            else
+            {
+                theButton.Label = "播放预览";
+            }
+
+            var SS_T = new SettingSaver_Local();
+            SS_T.AlterRecordObject(NameManager.AutoPlaySettingString, Toggled);
+            currentConfig.IsAutoPlayOn = Toggled;
+            TVInfoPanel.Refresh();
+        }
 
         private void PageLoaded(object sender, RoutedEventArgs e)
         {

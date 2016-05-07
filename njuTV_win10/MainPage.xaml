@@ -17,6 +17,7 @@
                 <CommandBar.SecondaryCommands>
                     <AppBarButton Label="Theme" Click="ThemeButton_Click"/>
                 </CommandBar.SecondaryCommands>
+                <AppBarToggleButton Name="AutoPlaySettingButton" Icon="Play" Label="播放预览" Click="AutoPlayEnableButton_Click"/>
                 <AppBarToggleButton Name="PreviewSettingButton" Icon="WebCam" Label="打开预览" Click="PreviewEnabledButton_Click"/>
                 <AppBarButton Icon="Refresh" Label="刷新" Click="RefreshButton_Click" Loaded="PageLoaded"/>
             </CommandBar>
