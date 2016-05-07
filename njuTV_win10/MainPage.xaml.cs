@@ -29,7 +29,26 @@ namespace njuTV_win10
             this.InitializeComponent();
             Current = this;
             PlayerFrame.Navigate(typeof(Player));
+
+            var SS_T = new SettingSaver_Local();
+            bool temp = false;
+            SS_T.GetRecordObject(NameManager.ThemeSettingString, ref temp);
+            if(temp)
+            {
+                RequestedTheme = ElementTheme.Light;
+            }
+            else
+            {
+                RequestedTheme = ElementTheme.Dark;
+            }
+
+            temp = false;
+            SS_T.GetRecordObject(NameManager.PreviewSettingString, ref temp);
+            PreviewSettingButton.IsChecked = temp;
+            TVInfoPanel.SetPreviewMode(temp);
+
         }
+
         public void PlayerShowOrNot(Visibility _vis)
         {
             PlayerFrame.Visibility = _vis;
@@ -39,5 +58,44 @@ namespace njuTV_win10
         {
             TVInfoPanel.Refresh();
         }
+        private void ThemeButton_Click(object sender, RoutedEventArgs e)
+        {
+            var SS_T = new SettingSaver_Local();
+            switch(RequestedTheme)
+            {
+                case ElementTheme.Default:
+                case ElementTheme.Light:
+                    RequestedTheme = ElementTheme.Dark;
+                    SS_T.AlterRecordObject(NameManager.ThemeSettingString, false);
+                    break;
+                case ElementTheme.Dark:
+                    RequestedTheme = ElementTheme.Light;
+                    SS_T.AlterRecordObject(NameManager.ThemeSettingString, true);
+                    break;
+            }
+            //PlayerFrame.RequestedTheme = RequestedTheme;
+        }
+
+
+        private void PreviewEnabledButton_Click(object sender, RoutedEventArgs e)
+        {
+            var theButton = sender as AppBarToggleButton;
+            var Toggled = (theButton.IsChecked.Value);
+            if (Toggled)
+            {
+                // warning
+                theButton.Label="关闭预览";
+            }
+            else
+            {
+
+                theButton.Label = "打开预览";
+            }
+
+            var SS_T = new SettingSaver_Local();
+            SS_T.AlterRecordObject(NameManager.PreviewSettingString, Toggled);
+            TVInfoPanel.SetPreviewMode(Toggled);
+            TVInfoPanel.Refresh();
+        }        
     }
 }

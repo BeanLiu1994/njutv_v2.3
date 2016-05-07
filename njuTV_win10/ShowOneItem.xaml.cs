@@ -75,19 +75,31 @@ namespace njuTV_win10
                 }
             }
         }
+        private bool previewenabled;
+        public bool PreviewEnabled
+        {
+            get { return previewenabled; }
+            set
+            {
+                previewenabled = value;
+                MediaElementThumbnail.IsEnabled = value;
+                if(value)
+                {
+                    Height = 133; Width = 200;
+                }
+                else
+                {
+                }
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PreviewEnabled)));
+            }
+        }
 
         public async void SetSource(Uri inputUri)
         {
-            //var URLsourceResult = await AdaptiveMediaSource.CreateFromUriAsync(inputUri);
-            //if (URLsourceResult.Status == AdaptiveMediaSourceCreationStatus.Success)
-            //{
-            //    MediaElementThumbnail.SetMediaStreamSource(URLsourceResult.MediaSource);
-            //}
-            //else
-            //{
-            //    Avaliable = false;
-            //}
-            if (!await MediaElementThumbnail.PreViewLoad(inputUri))
+            var SS_L = new SettingSaver_Local();
+            bool AutoPlay = false;//默认值
+            SS_L.GetRecordObject(NameManager.AutoPlaySettingString, ref AutoPlay);
+            if (!await MediaElementThumbnail.PreViewLoad(inputUri, AutoPlay))
                 Avaliable = false;
         }
     }

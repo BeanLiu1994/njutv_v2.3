@@ -14,6 +14,10 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <CommandBar Grid.Row="1">
+                <CommandBar.SecondaryCommands>
+                    <AppBarButton Label="Theme" Click="ThemeButton_Click"/>
+                </CommandBar.SecondaryCommands>
+                <AppBarToggleButton Name="PreviewSettingButton" Icon="WebCam" Label="打开预览" Click="PreviewEnabledButton_Click"/>
                 <AppBarButton Icon="Refresh" Label="刷新" Click="RefreshButton_Click"/>
             </CommandBar>
             <local:TVInfoShowerControl x:Name="TVInfoPanel" Margin="5"/>

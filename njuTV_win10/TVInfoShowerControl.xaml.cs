@@ -30,6 +30,23 @@ namespace njuTV_win10
             WebFetcher = new TVurlFetcher();
             TVInfoItems = WebFetcher.TVFetchedInfo;
         }
+        public void SetPreviewMode(bool Previewsetting)
+        {
+            if(Previewsetting)
+            {
+                HasPreview.IsEnabled = true;
+                HasPreview.Visibility = Visibility.Visible;
+                NoPreview.IsEnabled = false;
+                NoPreview.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                NoPreview.IsEnabled = true;
+                NoPreview.Visibility = Visibility.Visible;
+                HasPreview.IsEnabled = false;
+                HasPreview.Visibility = Visibility.Collapsed;
+            }
+        }
         
         public async void Refresh()
         {
@@ -47,7 +64,7 @@ namespace njuTV_win10
 
         private void ItemClicked(object sender, ItemClickEventArgs e)
         {
-            var container = sender as GridView;
+            var container = sender as ItemsControl;
             var ItemIndex = container.Items.IndexOf(e.ClickedItem);
             var PlayerParam = TVInfoItems.ElementAt(ItemIndex);
             MainPage.Current.PlayerShowOrNot(Visibility.Visible);

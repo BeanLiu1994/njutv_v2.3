@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -20,14 +21,25 @@ using Windows.UI.Xaml.Navigation;
 
 
 // The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
-
+/// <summary>
+/// 惨遭弃用。。。
+/// </summary>
 namespace njuTV_win10
 {
-    public sealed partial class MediaThumbNail : UserControl
+    public sealed partial class MediaThumbNail : UserControl, INotifyPropertyChanged
     {
         public MediaThumbNail()
         {
             this.InitializeComponent();
+        }
+        private bool autoplay;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public bool AutoPlay
+        {
+            get { return autoplay; }
+            set { autoplay = value; video.AutoPlay = value; PropertyChanged?.Invoke(this,new PropertyChangedEventArgs(nameof(AutoPlay))); }
         }
         public Uri CurrentUri { get; private set; }
         public async Task<bool> PreViewLoad(Uri tvurl)
