@@ -72,6 +72,7 @@ namespace njuTV_win10
 
             temp = false;
             SS_T.GetRecordObject(NameManager.AutoPlaySettingString, ref temp);
+            AutoPlaySettingButton.IsChecked = temp;
             currentConfig.IsAutoPlayOn = temp;
         }
 
