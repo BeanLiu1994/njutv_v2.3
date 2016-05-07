@@ -7,24 +7,11 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     d:DesignHeight="300"
-    d:DesignWidth="400">
+    d:DesignWidth="400"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    >
 
-    <Grid Name="RootGrid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup x:Name="PreviewSetting">
-                <VisualState x:Name="PreviewOn">
-                    <VisualState.Setters>
-                        <Setter Target="RootGrid.MaxWidth" Value="200"/>
-                        <Setter Target="RootGrid.MaxHeight" Value="133"/>
-                    </VisualState.Setters>
-                </VisualState>
-                <VisualState x:Name="PreviewOff">
-                    <VisualState.Setters>
-                        <Setter Target="ContentPresenterGrid.Visibility" Value="Collapsed"/>
-                    </VisualState.Setters>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
@@ -35,7 +22,7 @@
         </StackPanel>
         <!--用做封面-->
         <Grid Name="ContentPresenterGrid">
-            <local:MediaPreview x:Name="MediaElementThumbnail"/>
+            <MediaElement Name="MediaElementThumbnail" Stretch="Uniform" AutoPlay="True" Volume="0" MediaFailed="FailedToOpen" />
             <!--<MediaElement Name="MediaElementThumbnail" AutoPlay="False" Stretch="Uniform" MediaFailed="MediaFailed" Volume="0" />-->
             <StackPanel Name="ErrorPanel" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <FontIcon Glyph="&#xE711;" FontSize="40" Foreground="Crimson"/>

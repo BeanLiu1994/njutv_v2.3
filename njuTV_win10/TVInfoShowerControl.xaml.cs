@@ -30,17 +30,26 @@ namespace njuTV_win10
             WebFetcher = new TVurlFetcher();
             TVInfoItems = WebFetcher.TVFetchedInfo;
         }
-        public void SetPreviewMode(bool Previewsetting)
+        private PreviewConfig currentConfig;
+        public PreviewConfig CurrentConfig
         {
-            if(Previewsetting)
-                VisualStateManager.GoToState(this, "PreviewOn", true);
-            else
-                VisualStateManager.GoToState(this, "PreviewOff", true);
+            get { return currentConfig; }
+            set
+            {
+                currentConfig = value;
+                if (currentConfig.IsPreviewOn)
+                    VisualStateManager.GoToState(this, "PreviewOn", true);
+                else
+                    VisualStateManager.GoToState(this, "PreviewOff", true);
+
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrentConfig)));
+            }
         }
-        
+
         public async void Refresh()
         {
             TVInfoItems.Clear();
+            //GC.Collect();
             await WebFetcher.RefreshWebState();
         }
         private ObservableCollection<TVInfo> tvinfoitems;
@@ -59,6 +68,16 @@ namespace njuTV_win10
             var PlayerParam = TVInfoItems.ElementAt(ItemIndex);
             MainPage.Current.PlayerShowOrNot(Visibility.Visible);
             Player.Current.PlayingInfo = PlayerParam;
+        }
+
+        private void ControlLoaded(object sender, RoutedEventArgs e)
+        {
+            var temp = MainPage.Current?.currentConfig;
+            temp.PropertyChanged+=PreviewSettingChangedHandler;
+        }
+        private void PreviewSettingChangedHandler(object sender, PropertyChangedEventArgs e)
+        {
+            CurrentConfig = sender as PreviewConfig;
         }
     }
 }

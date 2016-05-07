@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     d:DesignHeight="300"
-    d:DesignWidth="400">
+    d:DesignWidth="400" Loaded="ControlLoaded">
     <UserControl.Resources>
         <DataTemplate x:Name="TVInfoTemplate" x:DataType="local:TVInfo">
             <local:ShowOneItem
@@ -29,6 +29,12 @@
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="PreviewOff">
+                    <VisualState.Setters>
+                        <Setter Target="NoPreview.IsEnabled" Value="True"/>
+                        <Setter Target="NoPreview.Visibility" Value="Visible"/>
+                        <Setter Target="HasPreview.IsEnabled" Value="False"/>
+                        <Setter Target="HasPreview.Visibility" Value="Collapsed"/>
+                    </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>

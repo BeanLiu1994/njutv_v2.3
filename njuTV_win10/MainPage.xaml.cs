@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -18,22 +19,44 @@ using Windows.UI.Xaml.Navigation;
 
 namespace njuTV_win10
 {
+    public class PreviewConfig : INotifyPropertyChanged
+    {
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private bool ispreviewon;
+        public bool IsPreviewOn
+        {
+            get { return ispreviewon; }
+            set { ispreviewon = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsPreviewOn))); }
+        }
+
+        private bool isautoplayon;
+        public bool IsAutoPlayOn
+        {
+            get { return isautoplayon; }
+            set { isautoplayon = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsAutoPlayOn))); }
+        }
+    }
     /// <summary>
     /// 可用于自身或导航至 Frame 内部的空白页。
     /// </summary>
     public sealed partial class MainPage : Page
     {
         public static MainPage Current;
+        public PreviewConfig currentConfig;
         public MainPage()
         {
             this.InitializeComponent();
+            currentConfig = new PreviewConfig();
             Current = this;
             PlayerFrame.Navigate(typeof(Player));
-
+        }
+        public void LoadAllSettings()
+        {
             var SS_T = new SettingSaver_Local();
             bool temp = false;
             SS_T.GetRecordObject(NameManager.ThemeSettingString, ref temp);
-            if(temp)
+            if (temp)
             {
                 RequestedTheme = ElementTheme.Light;
             }
@@ -45,8 +68,11 @@ namespace njuTV_win10
             temp = false;
             SS_T.GetRecordObject(NameManager.PreviewSettingString, ref temp);
             PreviewSettingButton.IsChecked = temp;
-            TVInfoPanel.SetPreviewMode(temp);
+            currentConfig.IsPreviewOn = temp;
 
+            temp = false;
+            SS_T.GetRecordObject(NameManager.AutoPlaySettingString, ref temp);
+            currentConfig.IsAutoPlayOn = temp;
         }
 
         public void PlayerShowOrNot(Visibility _vis)
@@ -88,14 +114,18 @@ namespace njuTV_win10
             }
             else
             {
-
                 theButton.Label = "打开预览";
             }
 
             var SS_T = new SettingSaver_Local();
             SS_T.AlterRecordObject(NameManager.PreviewSettingString, Toggled);
-            TVInfoPanel.SetPreviewMode(Toggled);
+            currentConfig.IsPreviewOn = Toggled;
             TVInfoPanel.Refresh();
-        }        
+        }
+
+        private void PageLoaded(object sender, RoutedEventArgs e)
+        {
+            LoadAllSettings();
+        }
     }
 }
