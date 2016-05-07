@@ -10,6 +10,6 @@
     d:DesignWidth="400">
     <Grid>
         <Image Name="Thumbnail"/>
-        <MediaElement Name="video" Stretch="Uniform" AutoPlay="False" Volume="0" CurrentStateChanged="StateChanged" />
+        <MediaElement Name="video" Stretch="Uniform" AutoPlay="True" Volume="0" CurrentStateChanged="StateChanged" />
     </Grid>
 </UserControl>
