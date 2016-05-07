@@ -7,11 +7,11 @@
   IgnorableNamespaces="uap mp">
 
   <Identity
-    Name="c3e24d38-5217-4bbe-a363-8273dfb65b1a"
+    Name="9bb03da2-0ec7-403d-8921-7ba3fd4f07f3"
     Publisher="CN=njuee"
     Version="1.0.0.0" />
 
-  <mp:PhoneIdentity PhoneProductId="c3e24d38-5217-4bbe-a363-8273dfb65b1a" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="9bb03da2-0ec7-403d-8921-7ba3fd4f07f3" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>njuTV_win10</DisplayName>

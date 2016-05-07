@@ -20,7 +20,8 @@
         </StackPanel>
         <!--用做封面-->
         <Grid Name="ContentPresenterGrid">
-            <MediaElement Name="MediaElementThumbnail" AutoPlay="False" Stretch="Uniform" MediaOpened="LoadedThenStop" Volume="0"/>
+            <local:MediaThumbNail x:Name="MediaElementThumbnail"/>
+            <!--<MediaElement Name="MediaElementThumbnail" AutoPlay="False" Stretch="Uniform" MediaFailed="MediaFailed" Volume="0" />-->
             <StackPanel Name="ErrorPanel" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <FontIcon Glyph="&#xE711;" FontSize="40" Foreground="Crimson"/>
                 <TextBlock Text="链接失效" FontSize="20"/>

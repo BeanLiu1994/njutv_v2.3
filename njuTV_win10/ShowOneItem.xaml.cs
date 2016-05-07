@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Media.Streaming.Adaptive;
 using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -46,8 +47,8 @@ namespace njuTV_win10
             set
             {
                 url = value;
+                SetSource(new Uri(value));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(URL)));
-                MediaElementThumbnail.Source = new Uri(value);
             }
         }
         private bool avaliable;
@@ -75,9 +76,19 @@ namespace njuTV_win10
             }
         }
 
-        private void LoadedThenStop(object sender, RoutedEventArgs e)
+        public async void SetSource(Uri inputUri)
         {
-            MediaElementThumbnail.Pause(); 
+            //var URLsourceResult = await AdaptiveMediaSource.CreateFromUriAsync(inputUri);
+            //if (URLsourceResult.Status == AdaptiveMediaSourceCreationStatus.Success)
+            //{
+            //    MediaElementThumbnail.SetMediaStreamSource(URLsourceResult.MediaSource);
+            //}
+            //else
+            //{
+            //    Avaliable = false;
+            //}
+            if (!await MediaElementThumbnail.PreViewLoad(inputUri))
+                Avaliable = false;
         }
     }
 }
