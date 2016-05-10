@@ -43,71 +43,36 @@ namespace njuTV_win10
             {
                 playinginfo = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PlayingInfo)));
-                if(value.Avaliable.HasValue)
+
+                InitialPanel.Visibility = Visibility.Collapsed;
+                var view = ApplicationView.GetForCurrentView();
+                view.Title = playinginfo.Name;
+                MainPage.Current?.SetTitleOfPlaying(playinginfo.Name);
+                if (value.Avaliable.HasValue)
                     if(value.Avaliable.Value)
                     {
                         ErrorPanel.Visibility = Visibility.Collapsed;
                         MediaPlayer.Play();
-                        var view = ApplicationView.GetForCurrentView();
-                        view.Title = playinginfo.Name;
-                        MainPage.Current?.SetTitleOfPlaying(playinginfo.Name);
                     }
                     else
                     {
-                        ErrorPanel.Visibility = Visibility.Visible;
-                        var currentFetcher = TVInfoShowerControl.Current.WebFetcher;
-                        if (!currentFetcher.InSchoolState)
-                        {
-                            ErrorInfo.Text = "没有校园网,无法读取 tv.nju.edu.cn ";
-                        }
-                        else
-                        {
-                            ErrorInfo.Text = "当前视频源不可用 请尝试刷新或等待学校修复";
-                        }
+                        MediaFailedEventHandler(null, null);
                     }
             }
         }
-
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            var info = e.Parameter as TVInfo;
-            if(info!=null)
-                PlayingInfo = info;
-        }
-
-        private void MediaPartTapped(object sender, TappedRoutedEventArgs e)
-        {
-            //定义简单动画的实例
-            DoubleAnimation daY = new DoubleAnimation();
-            
-            daY.From = 0D;
-
-            //指定终点
-            daY.To = MediaPlayerTransportControl.ActualHeight;
-            
-            //daY.By = 100D;
-            //指定时长300ms
-            Duration duration = new Duration(TimeSpan.FromMilliseconds(300));
-            daY.Duration = duration;
-
-            //将动画添加到偏移变形的实例上面 和Binding的格式有点像
-            //this.textBox.SetBinding（TextBox.TextProperty,binding）
-
-            //让按钮发生改变作为动画
-            //btn.BeginAnimation(Button.WidthProperty, daX);
-            //btn.BeginAnimation(Button.HeightProperty, daY);
-
-            //让 位置发生改变作为动画               
-            var s = new Storyboard();
-            //Storyboard.SetTarget(daY, _tt);
-            //Storyboard.SetTargetProperty(daY, "X");
-            //s.Children.Add(daY);
-            //s.Begin();
-        }
-
+        
         private void MediaFailedEventHandler(object sender, ExceptionRoutedEventArgs e)
         {
             ErrorPanel.Visibility = Visibility.Visible;
+            var currentFetcher = TVInfoShowerControl.Current.WebFetcher;
+            if (!currentFetcher.InSchoolState)
+            {
+                ErrorInfo.Text = "没有校园网,无法读取 tv.nju.edu.cn ";
+            }
+            else
+            {
+                ErrorInfo.Text = "当前视频源不可用 请尝试刷新或等待学校修复";
+            }
         }
     }
 }

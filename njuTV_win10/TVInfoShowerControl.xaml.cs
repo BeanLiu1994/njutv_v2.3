@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -30,21 +31,6 @@ namespace njuTV_win10
             WebFetcher = new TVurlFetcher();
             TVInfoItems = WebFetcher.TVFetchedInfo;
         }
-        private PreviewConfig currentConfig;
-        public PreviewConfig CurrentConfig
-        {
-            get { return currentConfig; }
-            set
-            {
-                currentConfig = value;
-                if (currentConfig.IsPreviewOn)
-                    VisualStateManager.GoToState(this, "PreviewOn", true);
-                else
-                    VisualStateManager.GoToState(this, "PreviewOff", true);
-
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrentConfig)));
-            }
-        }
 
         public async void Refresh()
         {
@@ -71,12 +57,7 @@ namespace njuTV_win10
 
         private void ControlLoaded(object sender, RoutedEventArgs e)
         {
-            var temp = MainPage.Current?.currentConfig;
-            temp.PropertyChanged+=PreviewSettingChangedHandler;
-        }
-        private void PreviewSettingChangedHandler(object sender, PropertyChangedEventArgs e)
-        {
-            CurrentConfig = sender as PreviewConfig;
+            Debug.WriteLine("加载了列表框架");
         }
     }
 }

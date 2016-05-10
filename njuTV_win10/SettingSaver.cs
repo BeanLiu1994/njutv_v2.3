@@ -84,8 +84,6 @@ namespace njuTV_win10
     public class NameManager
     {
         public const string ThemeSettingString = "Theme";
-        public const string AutoPlaySettingString = "AutoPlay";
-        public const string PreviewSettingString = "Preview";
 
     }
     #region Setting定义

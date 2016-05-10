@@ -18,6 +18,8 @@
                         <Setter Target="MenuCommandBar.ClosedDisplayMode" Value="Compact"/>
                     </VisualState.Setters>
                 </VisualState>
+            </VisualStateGroup>
+            <VisualStateGroup x:Name="SizeChange2">
                 <VisualState x:Name="width_big">
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="1200"/>
@@ -37,14 +39,14 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button Click="MenuButton_Click">
+            <Button Click="MenuButton_Click" Background="{ThemeResource SystemControlHighlightAccentBrush}">
                 <FontIcon Glyph="&#xE700;" HorizontalAlignment="Left" FontSize="20"/>
             </Button>
             <Grid Name="MyTitlePart" Grid.Column="1">
                 <Border Background="{ThemeResource SystemControlHighlightAccentBrush}">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Name="TitleOfPlaying" VerticalAlignment="Center" Margin="8,0,0,0" FontSize="15" Foreground="{ThemeResource SystemControlHighlightChromeHighBrush}"/>
-                        <TextBlock Text="南大TV" VerticalAlignment="Center" Margin="5,0,0,0"  FontSize="15" Foreground="{ThemeResource SystemControlHighlightChromeHighBrush}" />
+                        <TextBlock Name="TitleOfPlaying" VerticalAlignment="Center" Margin="8,0,0,0" FontSize="15" Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}"/>
+                        <TextBlock Text="南大TV" VerticalAlignment="Center" Margin="5,0,0,0"  FontSize="15" Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
                     </StackPanel>
                 </Border>
             </Grid>
@@ -57,11 +59,35 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <RelativePanel>
-                        <TextBlock Text="频道列表:"/>
-                        <Button Content="添加" RelativePanel.AlignRightWithPanel="True"/>
-                    </RelativePanel>
-                    <Grid Grid.Row="1" Margin="5,0">
+                    <Grid>
+                        <TextBlock Text="频道列表:" VerticalAlignment="Center" Margin="10,3" FontSize="20"/>
+                        <Button Background="Transparent" RelativePanel.AlignRightWithPanel="True" VerticalAlignment="Center" HorizontalAlignment="Right">
+                            <FontIcon Glyph="&#xE710;" FontSize="20"/>
+                            <Button.Flyout>
+                                <Flyout x:Name="AddButtonFlyout">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="300"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Text="添加项目" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
+                                        <TextBlock Text="名称" VerticalAlignment="Center" Grid.Row="1" Margin="5"/>
+                                        <TextBlock Text="URL" VerticalAlignment="Center" Grid.Row="2" Margin="5"/>
+                                        <TextBox Name="InputName" TextWrapping="Wrap" PlaceholderText="输入命名" VerticalAlignment="Center" Grid.Row="1" Grid.Column="1" Margin="5"/>
+                                        <TextBox Name="InputURL" TextWrapping="Wrap" PlaceholderText="输入url" VerticalAlignment="Center" Grid.Row="2" Grid.Column="1" Margin="5"/>
+                                        <Button Name="AddButtonFlyoutOKButton" Content="确定" Grid.Row="3" Grid.ColumnSpan="2" Click="AddButton_Click" Margin="5" HorizontalAlignment="Center"/>
+                                    </Grid>
+                                </Flyout>
+                            </Button.Flyout>    
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Row="1">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="*"/>
@@ -69,9 +95,7 @@
                         <Border BorderThickness="0,0,0,1" BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}"/>
                         <local:TVInfoShowerControl x:Name="TVInfoPanel" Grid.Row="1"/>
                     </Grid>
-                    <CommandBar Name="MenuCommandBar" Grid.Row="2" Background="{ThemeResource SystemControlHighlightChromeHighBrush}" ClosedDisplayMode="Minimal">
-                        <AppBarToggleButton Visibility="Collapsed" Name="AutoPlaySettingButton" Icon="Play" Label="播放预览" Click="AutoPlayEnableButton_Click"/>
-                        <AppBarToggleButton Visibility="Collapsed" Name="PreviewSettingButton" Icon="WebCam" Label="打开预览" Click="PreviewEnabledButton_Click"/>
+                    <CommandBar Name="MenuCommandBar" Grid.Row="2" Background="{ThemeResource SystemControlBackgroundChromeMediumLowBrush}" ClosedDisplayMode="Minimal">
                         <AppBarButton Icon="View" Label="主题色" Click="ThemeButton_Click"/>
                         <AppBarButton Icon="Refresh" Label="刷新" Click="RefreshButton_Click" Loaded="PageLoaded"/>
                     </CommandBar>

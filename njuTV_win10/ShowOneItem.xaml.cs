@@ -36,6 +36,7 @@ namespace njuTV_win10
             {
                 title = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Title)));
+                //相当于oneway的绑定
                 TitleUI.Text = value;
             }
         }
@@ -47,10 +48,10 @@ namespace njuTV_win10
             set
             {
                 url = value;
-                SetSource(new Uri(value));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(URL)));
             }
         }
+
         private bool? avaliable;
         public bool? Avaliable
         {
@@ -59,37 +60,16 @@ namespace njuTV_win10
             {
                 avaliable = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Avaliable)));
+                // 相当于一个binding
                 if(value.HasValue)
                     if(value.Value)
                     {
                         SubTitleUI.Visibility = Visibility.Collapsed;
-                        //之后改成一个visualstatemanager
-                        ErrorPanel.Visibility = Visibility.Collapsed;
-                        //TitleUI.Foreground = new SolidColorBrush(Colors.DarkGreen);
-                        ContentPresenterGrid.BorderThickness = new Thickness(0);
                     }
                     else
                     {
                         SubTitleUI.Visibility = Visibility.Visible;
-                        ErrorPanel.Visibility = Visibility.Visible;
-                        TitleUI.Foreground = new SolidColorBrush(Colors.Crimson);
-                        ContentPresenterGrid.BorderThickness = new Thickness(1);
-                        ContentPresenterGrid.BorderBrush = new SolidColorBrush(Colors.Crimson);
                     }
-            }
-        }
-        public void SetSource(Uri inputUri)
-        {
-            var CurrentConfig = MainPage.Current?.currentConfig;
-            if (CurrentConfig!=null && CurrentConfig.IsPreviewOn)
-            {
-                MediaElementThumbnail.Source = inputUri;
-                MediaElementThumbnail.AutoPlay = CurrentConfig.IsAutoPlayOn;
-                Width = 200; Height = 133;
-            }
-            else
-            { 
-                ContentPresenterGrid.Visibility = Visibility.Collapsed;
             }
         }
 

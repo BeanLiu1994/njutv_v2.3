@@ -10,22 +10,7 @@
     d:DesignWidth="400">
 
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="1">
-            <TextBlock Name="TitleUI"/>
-            <Rectangle Name="SubTitleUI" Height="2" Width="{Binding ActualWidth, ElementName=TitleUI, Mode=OneWay}" VerticalAlignment="Center" Fill="Crimson" StrokeThickness="3" HorizontalAlignment="Center" Margin="-5,0"/>
-        </Grid>
-        <!--用做封面-->
-        <Grid Name="ContentPresenterGrid">
-            <MediaElement Name="MediaElementThumbnail" Stretch="Uniform" AutoPlay="True" Volume="0" MediaFailed="FailedToOpen" />
-            <!--<MediaElement Name="MediaElementThumbnail" AutoPlay="False" Stretch="Uniform" MediaFailed="MediaFailed" Volume="0" />-->
-            <StackPanel Name="ErrorPanel" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <FontIcon Glyph="&#xE711;" FontSize="40" Foreground="Crimson"/>
-                <TextBlock Text="链接失效" FontSize="20"/>
-            </StackPanel>
-        </Grid>
+        <TextBlock Name="TitleUI"/>
+        <Rectangle Name="SubTitleUI" Height="3" Width="{Binding ActualWidth, ElementName=TitleUI, Mode=OneWay}" VerticalAlignment="Center" Fill="Crimson"/>
     </Grid>
 </UserControl>

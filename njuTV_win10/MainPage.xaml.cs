@@ -20,31 +20,12 @@ using Windows.UI.Xaml.Navigation;
 
 namespace njuTV_win10
 {
-    public class PreviewConfig : INotifyPropertyChanged
-    {
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private bool ispreviewon;
-        public bool IsPreviewOn
-        {
-            get { return ispreviewon; }
-            set { ispreviewon = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsPreviewOn))); }
-        }
-
-        private bool isautoplayon;
-        public bool IsAutoPlayOn
-        {
-            get { return isautoplayon; }
-            set { isautoplayon = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsAutoPlayOn))); }
-        }
-    }
     /// <summary>
     /// 可用于自身或导航至 Frame 内部的空白页。
     /// </summary>
     public sealed partial class MainPage : Page
     {
         public static MainPage Current;
-        public PreviewConfig currentConfig;
         public MainPage()
         {
             this.InitializeComponent();
@@ -54,8 +35,7 @@ namespace njuTV_win10
             view.TitleBar.ButtonBackgroundColor = Colors.Transparent;
             view.TitleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
             view.TitleBar.InactiveBackgroundColor = Colors.Transparent;
-
-            currentConfig = new PreviewConfig();
+            
             Current = this;
             PlayerFrame.Navigate(typeof(Player));
         }
@@ -72,18 +52,6 @@ namespace njuTV_win10
             {
                 RequestedTheme = ElementTheme.Dark;
             }
-
-            //temp = false;
-            //SS_T.GetRecordObject(NameManager.PreviewSettingString, ref temp);
-            //PreviewSettingButton.IsChecked = temp;
-            //currentConfig.IsPreviewOn = temp;
-
-            //temp = false;
-            //SS_T.GetRecordObject(NameManager.AutoPlaySettingString, ref temp);
-            //AutoPlaySettingButton.IsChecked = temp;
-            //currentConfig.IsAutoPlayOn = temp;
-
-
             Splitter.IsPaneOpen = true;
         }
 
@@ -106,49 +74,8 @@ namespace njuTV_win10
                     SS_T.AlterRecordObject(NameManager.ThemeSettingString, true);
                     break;
             }
-            //PlayerFrame.RequestedTheme = RequestedTheme;
         }
-
-
-        private void PreviewEnabledButton_Click(object sender, RoutedEventArgs e)
-        {
-            var theButton = sender as AppBarToggleButton;
-            var Toggled = (theButton.IsChecked.Value);
-            if (Toggled)
-            {
-                // warning
-                theButton.Label="关闭预览";
-            }
-            else
-            {
-                theButton.Label = "打开预览";
-            }
-
-            var SS_T = new SettingSaver_Local();
-            SS_T.AlterRecordObject(NameManager.PreviewSettingString, Toggled);
-            currentConfig.IsPreviewOn = Toggled;
-            TVInfoPanel.Refresh();
-        }
-        private void AutoPlayEnableButton_Click(object sender, RoutedEventArgs e)
-        {
-            var theButton = sender as AppBarToggleButton;
-            var Toggled = (theButton.IsChecked.Value);
-            if (Toggled)
-            {
-                // warning
-                theButton.Label = "停止播放";
-            }
-            else
-            {
-                theButton.Label = "播放预览";
-            }
-
-            var SS_T = new SettingSaver_Local();
-            SS_T.AlterRecordObject(NameManager.AutoPlaySettingString, Toggled);
-            currentConfig.IsAutoPlayOn = Toggled;
-            TVInfoPanel.Refresh();
-        }
-
+        
         private void PageLoaded(object sender, RoutedEventArgs e)
         {
             LoadAllSettings();
@@ -158,6 +85,31 @@ namespace njuTV_win10
             Splitter.IsPaneOpen = !Splitter.IsPaneOpen;
         }
         public void SetTitleOfPlaying(string info)
-        { TitleOfPlaying.Text = info; }
+        {
+            TitleOfPlaying.Text = info;
+        }
+
+        private int i = 1;
+        private void AddButton_Click(object sender, RoutedEventArgs e)
+        {
+            if(!TVurlFetcher.VerifyURL(InputURL.Text))
+            {
+                AddButtonFlyoutOKButton.Content = "URL格式有误";
+                return;
+            }
+            else
+            {
+                AddButtonFlyoutOKButton.Content = "确定";
+            }
+
+            var CurrentName = InputName.Text;
+            if (CurrentName == "")
+            {
+                CurrentName = "Item " + i++.ToString();
+            }
+
+            TVInfoPanel.TVInfoItems.Add(new TVInfo() { Name = CurrentName, URL = InputURL.Text });
+            AddButtonFlyout.Hide();
+        }
     }
 }

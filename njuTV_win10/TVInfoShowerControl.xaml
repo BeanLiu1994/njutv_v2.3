@@ -18,27 +18,6 @@
         </DataTemplate>
     </UserControl.Resources>
     <Grid>
-        <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup x:Name="PreviewSetting">
-                <VisualState x:Name="PreviewOn">
-                    <VisualState.Setters>
-                        <Setter Target="HasPreview.IsEnabled" Value="True"/>
-                        <Setter Target="HasPreview.Visibility" Value="Visible"/>
-                        <Setter Target="NoPreview.IsEnabled" Value="False"/>
-                        <Setter Target="NoPreview.Visibility" Value="Collapsed"/>
-                    </VisualState.Setters>
-                </VisualState>
-                <VisualState x:Name="PreviewOff">
-                    <VisualState.Setters>
-                        <Setter Target="NoPreview.IsEnabled" Value="True"/>
-                        <Setter Target="NoPreview.Visibility" Value="Visible"/>
-                        <Setter Target="HasPreview.IsEnabled" Value="False"/>
-                        <Setter Target="HasPreview.Visibility" Value="Collapsed"/>
-                    </VisualState.Setters>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
-        <GridView Name="HasPreview" IsEnabled="False" Visibility="Collapsed" ItemTemplate="{StaticResource TVInfoTemplate}" ItemsSource="{x:Bind Path=TVInfoItems,Mode=OneWay}" ItemClick="ItemClicked" SelectionMode="None" IsItemClickEnabled="True" ScrollViewer.VerticalScrollBarVisibility="Hidden" />
         <ListView Name="NoPreview" ItemTemplate="{StaticResource TVInfoTemplate}" ItemsSource="{x:Bind Path=TVInfoItems,Mode=OneWay}" ItemClick="ItemClicked" SelectionMode="None" IsItemClickEnabled="True" ScrollViewer.VerticalScrollBarVisibility="Hidden" />
     </Grid>
 </UserControl>
