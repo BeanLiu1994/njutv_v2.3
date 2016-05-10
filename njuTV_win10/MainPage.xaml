@@ -5,12 +5,32 @@
     xmlns:local="using:njuTV_win10"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d" Background="{ThemeResource SystemControlHighlightAccentBrush}">
+    mc:Ignorable="d" Background="{ThemeResource SystemControlBackgroundChromeMediumBrush}">
 
     <Grid>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="SizeChange">
+                <VisualState x:Name="height_big">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowHeight="500"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="MenuCommandBar.ClosedDisplayMode" Value="Compact"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="width_big">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="1200"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="Splitter.DisplayMode" Value="Inline"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
         <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -23,8 +43,8 @@
             <Grid Name="MyTitlePart" Grid.Column="1">
                 <Border Background="{ThemeResource SystemControlHighlightAccentBrush}">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Name="TitleOfPlaying" VerticalAlignment="Center" Margin="5,0" FontSize="20"/>
-                        <TextBlock Text="南大TV" VerticalAlignment="Center" Margin="5,0" FontSize="18"/>
+                        <TextBlock Name="TitleOfPlaying" VerticalAlignment="Center" Margin="8,0,0,0" FontSize="15" Foreground="{ThemeResource SystemControlHighlightChromeHighBrush}"/>
+                        <TextBlock Text="南大TV" VerticalAlignment="Center" Margin="5,0,0,0"  FontSize="15" Foreground="{ThemeResource SystemControlHighlightChromeHighBrush}" />
                     </StackPanel>
                 </Border>
             </Grid>
@@ -33,20 +53,32 @@
             <SplitView.Pane>
                 <Grid>
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <local:TVInfoShowerControl x:Name="TVInfoPanel" Margin="5"/>
-                    <CommandBar Grid.Row="1" Background="{x:Null}">
+                    <RelativePanel>
+                        <TextBlock Text="频道列表:"/>
+                        <Button Content="添加" RelativePanel.AlignRightWithPanel="True"/>
+                    </RelativePanel>
+                    <Grid Grid.Row="1" Margin="5,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Border BorderThickness="0,0,0,1" BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}"/>
+                        <local:TVInfoShowerControl x:Name="TVInfoPanel" Grid.Row="1"/>
+                    </Grid>
+                    <CommandBar Name="MenuCommandBar" Grid.Row="2" Background="{ThemeResource SystemControlHighlightChromeHighBrush}" ClosedDisplayMode="Minimal">
                         <AppBarToggleButton Visibility="Collapsed" Name="AutoPlaySettingButton" Icon="Play" Label="播放预览" Click="AutoPlayEnableButton_Click"/>
                         <AppBarToggleButton Visibility="Collapsed" Name="PreviewSettingButton" Icon="WebCam" Label="打开预览" Click="PreviewEnabledButton_Click"/>
                         <AppBarButton Icon="View" Label="主题色" Click="ThemeButton_Click"/>
                         <AppBarButton Icon="Refresh" Label="刷新" Click="RefreshButton_Click" Loaded="PageLoaded"/>
                     </CommandBar>
                 </Grid>
-                </SplitView.Pane>
-                <Frame Name="PlayerFrame"/>
-            </SplitView>
-        </Grid>
+            </SplitView.Pane>
+            <Frame Name="PlayerFrame"/>
+        </SplitView>
+    </Grid>
 
 </Page>

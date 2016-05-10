@@ -478,7 +478,8 @@
         </Style>
     </Page.Resources>
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid>
+        <Image/>
         <MediaElement Name="MediaPlayer" AutoPlay="True" Source="{x:Bind Path=PlayingInfo.URL,Mode=OneWay}" AreTransportControlsEnabled="True" Tapped="MediaPartTapped" MediaFailed="MediaFailedEventHandler">
             <MediaElement.TransportControls>
                 <MediaTransportControls Name="MediaPlayerTransportControl" IsSeekEnabled="False" IsSeekBarVisible="False" IsZoomButtonVisible="False" IsZoomEnabled="False" IsCompact="True"  Style="{StaticResource MyMediaTransportControlStyle}"/>

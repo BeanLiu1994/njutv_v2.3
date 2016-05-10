@@ -36,7 +36,13 @@ namespace njuTV_win10
         public async void URLAvaliableCheck()
         {
             var WebChecker = new ConnectivityChecker();
-            Avaliable = await WebChecker.TestConnection(URL);
+            var checker = await WebChecker.TestConnection(URL);
+            if (!checker.IsConnectionAvaliable.Value)
+                Avaliable = false;
+            else if (checker.StatusCode.Value == System.Net.HttpStatusCode.NotModified)
+                Avaliable = true;
+            else
+                Avaliable = checker.IsConnectionGood;                
         }
 
         private bool? avaliable;
@@ -84,8 +90,8 @@ namespace njuTV_win10
         public async Task<bool> RefreshWebState()
         {
             Debug.Write("[TVurlFetcher: 检测网络...]");
-            InSchoolState = (await InSchoolChecker.TestConnection()).Value;
-            CurrentWebState = (await WebChecker.TestConnection()).Value;
+            InSchoolState = (await InSchoolChecker.TestConnection()).IsConnectionAvaliable.Value;
+            CurrentWebState = (await WebChecker.TestConnection()).IsConnectionAvaliable.Value;
 
             if (CurrentWebState)
             {

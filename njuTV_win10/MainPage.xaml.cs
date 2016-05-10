@@ -54,6 +54,7 @@ namespace njuTV_win10
             view.TitleBar.ButtonBackgroundColor = Colors.Transparent;
             view.TitleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
             view.TitleBar.InactiveBackgroundColor = Colors.Transparent;
+
             currentConfig = new PreviewConfig();
             Current = this;
             PlayerFrame.Navigate(typeof(Player));
@@ -81,6 +82,9 @@ namespace njuTV_win10
             //SS_T.GetRecordObject(NameManager.AutoPlaySettingString, ref temp);
             //AutoPlaySettingButton.IsChecked = temp;
             //currentConfig.IsAutoPlayOn = temp;
+
+
+            Splitter.IsPaneOpen = true;
         }
 
         private void RefreshButton_Click(object sender, RoutedEventArgs e)

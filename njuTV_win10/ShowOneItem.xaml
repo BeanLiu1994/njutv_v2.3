@@ -14,10 +14,10 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal" Grid.Row="1">
-            <TextBlock Name="TitleUI" Foreground="{ThemeResource SystemControlForegroundAccentBrush}"/>
-            <TextBlock Name="SubTitleUI" Margin="5,0" Foreground="{ThemeResource SystemControlForegroundAccentBrush}"/>
-        </StackPanel>
+        <Grid Grid.Row="1">
+            <TextBlock Name="TitleUI"/>
+            <Rectangle Name="SubTitleUI" Height="2" Width="{Binding ActualWidth, ElementName=TitleUI, Mode=OneWay}" VerticalAlignment="Center" Fill="Crimson" StrokeThickness="3" HorizontalAlignment="Center" Margin="-5,0"/>
+        </Grid>
         <!--用做封面-->
         <Grid Name="ContentPresenterGrid">
             <MediaElement Name="MediaElementThumbnail" Stretch="Uniform" AutoPlay="True" Volume="0" MediaFailed="FailedToOpen" />

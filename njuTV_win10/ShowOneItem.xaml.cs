@@ -62,6 +62,7 @@ namespace njuTV_win10
                 if(value.HasValue)
                     if(value.Value)
                     {
+                        SubTitleUI.Visibility = Visibility.Collapsed;
                         //之后改成一个visualstatemanager
                         ErrorPanel.Visibility = Visibility.Collapsed;
                         //TitleUI.Foreground = new SolidColorBrush(Colors.DarkGreen);
@@ -69,6 +70,7 @@ namespace njuTV_win10
                     }
                     else
                     {
+                        SubTitleUI.Visibility = Visibility.Visible;
                         ErrorPanel.Visibility = Visibility.Visible;
                         TitleUI.Foreground = new SolidColorBrush(Colors.Crimson);
                         ContentPresenterGrid.BorderThickness = new Thickness(1);

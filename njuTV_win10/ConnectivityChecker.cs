@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading;
@@ -14,11 +15,13 @@ namespace njuTV_win10
         public bool? IsConnectionAvaliable { get; set; }
         public string TestedUrl { get; set; }
         public string ReturnedData { get; set; }
+        public HttpStatusCode? StatusCode { get; set; }
+        public bool? IsConnectionGood { get; set; }
         public ConnectivityChecker(string url = null)
         {
             TestedUrl = url;
         }
-        public async Task<bool?> TestConnection(string url = null)
+        public async Task<ConnectivityChecker> TestConnection(string url = null)
         {
             if (url != null)
                 TestedUrl = url;
@@ -32,7 +35,9 @@ namespace njuTV_win10
             {
                 HttpClient myHC = new HttpClient();
                 HttpResponseMessage response = await myHC.GetAsync(new Uri(url), cts.Token);
-                IsConnectionAvaliable = response.IsSuccessStatusCode;
+                StatusCode = response.StatusCode;
+                IsConnectionAvaliable = true;
+                IsConnectionGood = response.IsSuccessStatusCode;
                 ReturnedData = await response.Content.ReadAsStringAsync();
             }
             catch (TaskCanceledException e)
@@ -41,7 +46,8 @@ namespace njuTV_win10
                 Debug.WriteLine(e.Message);
                 Debug.WriteLine("可能出现的问题是: api修改 网络断开 没有使用校园网");
                 ReturnedData = null;
-                IsConnectionAvaliable = false; 
+                IsConnectionAvaliable = false;
+                IsConnectionGood = false;
             }
             catch (Exception e)
             {
@@ -50,9 +56,10 @@ namespace njuTV_win10
                 Debug.WriteLine("可能出现的问题是: api修改 网络断开 没有使用校园网");
                 ReturnedData = null;
                 IsConnectionAvaliable = false;
+                IsConnectionGood = false;
             }
             //返回结果网页（html）代码
-            return IsConnectionAvaliable;
+            return this;
         }
     }
 }
