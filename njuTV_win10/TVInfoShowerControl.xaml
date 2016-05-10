@@ -38,7 +38,7 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        <GridView Name="HasPreview" IsEnabled="False" Visibility="Collapsed" ItemTemplate="{StaticResource TVInfoTemplate}" ItemsSource="{x:Bind Path=TVInfoItems,Mode=OneWay}" ItemClick="ItemClicked" SelectionMode="None" IsItemClickEnabled="True" />
-        <ListView Name="NoPreview" ItemTemplate="{StaticResource TVInfoTemplate}" ItemsSource="{x:Bind Path=TVInfoItems,Mode=OneWay}" ItemClick="ItemClicked" SelectionMode="None" IsItemClickEnabled="True" />
+        <GridView Name="HasPreview" IsEnabled="False" Visibility="Collapsed" ItemTemplate="{StaticResource TVInfoTemplate}" ItemsSource="{x:Bind Path=TVInfoItems,Mode=OneWay}" ItemClick="ItemClicked" SelectionMode="None" IsItemClickEnabled="True" ScrollViewer.VerticalScrollBarVisibility="Hidden" />
+        <ListView Name="NoPreview" ItemTemplate="{StaticResource TVInfoTemplate}" ItemsSource="{x:Bind Path=TVInfoItems,Mode=OneWay}" ItemClick="ItemClicked" SelectionMode="None" IsItemClickEnabled="True" ScrollViewer.VerticalScrollBarVisibility="Hidden" />
     </Grid>
 </UserControl>

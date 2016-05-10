@@ -51,28 +51,29 @@ namespace njuTV_win10
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(URL)));
             }
         }
-        private bool avaliable;
-        public bool Avaliable
+        private bool? avaliable;
+        public bool? Avaliable
         {
             get { return avaliable; }
             set
             {
                 avaliable = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Avaliable)));
-                if(value)
-                {
-                    //之后改成一个visualstatemanager
-                    ErrorPanel.Visibility = Visibility.Collapsed;
-                    TitleUI.Foreground = new SolidColorBrush(Colors.DarkGreen);
-                    ContentPresenterGrid.BorderThickness = new Thickness(0);
-                }
-                else
-                {
-                    ErrorPanel.Visibility = Visibility.Visible;
-                    TitleUI.Foreground = new SolidColorBrush(Colors.Crimson);
-                    ContentPresenterGrid.BorderThickness = new Thickness(1);
-                    ContentPresenterGrid.BorderBrush = new SolidColorBrush(Colors.Crimson);
-                }
+                if(value.HasValue)
+                    if(value.Value)
+                    {
+                        //之后改成一个visualstatemanager
+                        ErrorPanel.Visibility = Visibility.Collapsed;
+                        //TitleUI.Foreground = new SolidColorBrush(Colors.DarkGreen);
+                        ContentPresenterGrid.BorderThickness = new Thickness(0);
+                    }
+                    else
+                    {
+                        ErrorPanel.Visibility = Visibility.Visible;
+                        TitleUI.Foreground = new SolidColorBrush(Colors.Crimson);
+                        ContentPresenterGrid.BorderThickness = new Thickness(1);
+                        ContentPresenterGrid.BorderBrush = new SolidColorBrush(Colors.Crimson);
+                    }
             }
         }
         public void SetSource(Uri inputUri)

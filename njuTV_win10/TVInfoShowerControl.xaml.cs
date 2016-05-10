@@ -66,7 +66,6 @@ namespace njuTV_win10
             var container = sender as ItemsControl;
             var ItemIndex = container.Items.IndexOf(e.ClickedItem);
             var PlayerParam = TVInfoItems.ElementAt(ItemIndex);
-            MainPage.Current.PlayerShowOrNot(Visibility.Visible);
             Player.Current.PlayingInfo = PlayerParam;
         }
 

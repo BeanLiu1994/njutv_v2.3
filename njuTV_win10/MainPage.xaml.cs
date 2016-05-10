@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -47,6 +48,12 @@ namespace njuTV_win10
         public MainPage()
         {
             this.InitializeComponent();
+            Window.Current.SetTitleBar(MyTitlePart);
+            var view = ApplicationView.GetForCurrentView();
+            view.TitleBar.BackgroundColor = Colors.Transparent;
+            view.TitleBar.ButtonBackgroundColor = Colors.Transparent;
+            view.TitleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
+            view.TitleBar.InactiveBackgroundColor = Colors.Transparent;
             currentConfig = new PreviewConfig();
             Current = this;
             PlayerFrame.Navigate(typeof(Player));
@@ -65,20 +72,15 @@ namespace njuTV_win10
                 RequestedTheme = ElementTheme.Dark;
             }
 
-            temp = false;
-            SS_T.GetRecordObject(NameManager.PreviewSettingString, ref temp);
-            PreviewSettingButton.IsChecked = temp;
-            currentConfig.IsPreviewOn = temp;
+            //temp = false;
+            //SS_T.GetRecordObject(NameManager.PreviewSettingString, ref temp);
+            //PreviewSettingButton.IsChecked = temp;
+            //currentConfig.IsPreviewOn = temp;
 
-            temp = false;
-            SS_T.GetRecordObject(NameManager.AutoPlaySettingString, ref temp);
-            AutoPlaySettingButton.IsChecked = temp;
-            currentConfig.IsAutoPlayOn = temp;
-        }
-
-        public void PlayerShowOrNot(Visibility _vis)
-        {
-            PlayerFrame.Visibility = _vis;
+            //temp = false;
+            //SS_T.GetRecordObject(NameManager.AutoPlaySettingString, ref temp);
+            //AutoPlaySettingButton.IsChecked = temp;
+            //currentConfig.IsAutoPlayOn = temp;
         }
 
         private void RefreshButton_Click(object sender, RoutedEventArgs e)
@@ -147,5 +149,11 @@ namespace njuTV_win10
         {
             LoadAllSettings();
         }
+        private void MenuButton_Click(object sender, RoutedEventArgs e)
+        {
+            Splitter.IsPaneOpen = !Splitter.IsPaneOpen;
+        }
+        public void SetTitleOfPlaying(string info)
+        { TitleOfPlaying.Text = info; }
     }
 }

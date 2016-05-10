@@ -5,24 +5,48 @@
     xmlns:local="using:njuTV_win10"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d" Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
+    mc:Ignorable="d" Background="{ThemeResource SystemControlHighlightAccentBrush}">
 
     <Grid>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
+        <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <CommandBar Grid.Row="1">
-                <CommandBar.SecondaryCommands>
-                    <AppBarButton Label="Theme" Click="ThemeButton_Click"/>
-                </CommandBar.SecondaryCommands>
-                <AppBarToggleButton Name="AutoPlaySettingButton" Icon="Play" Label="播放预览" Click="AutoPlayEnableButton_Click"/>
-                <AppBarToggleButton Name="PreviewSettingButton" Icon="WebCam" Label="打开预览" Click="PreviewEnabledButton_Click"/>
-                <AppBarButton Icon="Refresh" Label="刷新" Click="RefreshButton_Click" Loaded="PageLoaded"/>
-            </CommandBar>
-            <local:TVInfoShowerControl x:Name="TVInfoPanel" Margin="5"/>
+                <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Click="MenuButton_Click">
+                <FontIcon Glyph="&#xE700;" HorizontalAlignment="Left" FontSize="20"/>
+            </Button>
+            <Grid Name="MyTitlePart" Grid.Column="1">
+                <Border Background="{ThemeResource SystemControlHighlightAccentBrush}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Name="TitleOfPlaying" VerticalAlignment="Center" Margin="5,0" FontSize="20"/>
+                        <TextBlock Text="南大TV" VerticalAlignment="Center" Margin="5,0" FontSize="18"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
         </Grid>
-        <Frame Name="PlayerFrame" Visibility="Collapsed"/>
-    </Grid>
+        <SplitView Name="Splitter" OpenPaneLength="289" IsPaneOpen="True" Grid.Row="1" PaneBackground="{ThemeResource SystemControlHighlightAltAltMediumHighBrush}">
+            <SplitView.Pane>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <local:TVInfoShowerControl x:Name="TVInfoPanel" Margin="5"/>
+                    <CommandBar Grid.Row="1" Background="{x:Null}">
+                        <AppBarToggleButton Visibility="Collapsed" Name="AutoPlaySettingButton" Icon="Play" Label="播放预览" Click="AutoPlayEnableButton_Click"/>
+                        <AppBarToggleButton Visibility="Collapsed" Name="PreviewSettingButton" Icon="WebCam" Label="打开预览" Click="PreviewEnabledButton_Click"/>
+                        <AppBarButton Icon="View" Label="主题色" Click="ThemeButton_Click"/>
+                        <AppBarButton Icon="Refresh" Label="刷新" Click="RefreshButton_Click" Loaded="PageLoaded"/>
+                    </CommandBar>
+                </Grid>
+                </SplitView.Pane>
+                <Frame Name="PlayerFrame"/>
+            </SplitView>
+        </Grid>
+
 </Page>

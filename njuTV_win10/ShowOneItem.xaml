@@ -7,9 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     d:DesignHeight="300"
-    d:DesignWidth="400"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-    >
+    d:DesignWidth="400">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -17,8 +15,8 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" Grid.Row="1">
-            <TextBlock Name="TitleUI" Margin="5,0"/>
-            <TextBlock Name="SubTitleUI" Margin="5,0"/>
+            <TextBlock Name="TitleUI" Foreground="{ThemeResource SystemControlForegroundAccentBrush}"/>
+            <TextBlock Name="SubTitleUI" Margin="5,0" Foreground="{ThemeResource SystemControlForegroundAccentBrush}"/>
         </StackPanel>
         <!--用做封面-->
         <Grid Name="ContentPresenterGrid">

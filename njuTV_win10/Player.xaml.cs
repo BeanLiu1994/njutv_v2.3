@@ -32,14 +32,6 @@ namespace njuTV_win10
         {
             this.InitializeComponent();
             Current = this;
-            SystemNavigationManager.GetForCurrentView().BackRequested +=
-                (s, e) =>
-                {
-                    MainPage.Current.PlayerShowOrNot(Visibility.Collapsed);
-                    MediaPlayer.Stop();
-                    SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
-                    ApplicationView.GetForCurrentView().Title = "";
-                };
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -51,27 +43,28 @@ namespace njuTV_win10
             {
                 playinginfo = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PlayingInfo)));
-                SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
-                var view = ApplicationView.GetForCurrentView();
-                view.Title = playinginfo.Name;
-                if(value.Avaliable)
-                {
-                    ErrorPanel.Visibility = Visibility.Collapsed;
-                    MediaPlayer.Play();
-                }
-                else
-                {
-                    ErrorPanel.Visibility = Visibility.Visible;
-                    var currentFetcher = TVInfoShowerControl.Current.WebFetcher;
-                    if (!currentFetcher.InSchoolState)
+                if(value.Avaliable.HasValue)
+                    if(value.Avaliable.Value)
                     {
-                        ErrorInfo.Text = "没有校园网,无法读取 tv.nju.edu.cn ";
+                        ErrorPanel.Visibility = Visibility.Collapsed;
+                        MediaPlayer.Play();
+                        var view = ApplicationView.GetForCurrentView();
+                        view.Title = playinginfo.Name;
+                        MainPage.Current?.SetTitleOfPlaying(playinginfo.Name);
                     }
                     else
                     {
-                        ErrorInfo.Text = "当前视频源不可用 请尝试刷新或等待学校修复";
-                    }                        
-                }
+                        ErrorPanel.Visibility = Visibility.Visible;
+                        var currentFetcher = TVInfoShowerControl.Current.WebFetcher;
+                        if (!currentFetcher.InSchoolState)
+                        {
+                            ErrorInfo.Text = "没有校园网,无法读取 tv.nju.edu.cn ";
+                        }
+                        else
+                        {
+                            ErrorInfo.Text = "当前视频源不可用 请尝试刷新或等待学校修复";
+                        }
+                    }
             }
         }
 

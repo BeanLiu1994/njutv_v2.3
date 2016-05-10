@@ -36,11 +36,11 @@ namespace njuTV_win10
         public async void URLAvaliableCheck()
         {
             var WebChecker = new ConnectivityChecker();
-            Avaliable = (await WebChecker.TestConnection(URL)).Value;
+            Avaliable = await WebChecker.TestConnection(URL);
         }
 
-        private bool avaliable;
-        public bool Avaliable
+        private bool? avaliable;
+        public bool? Avaliable
         {
             get { return avaliable; }
             set { avaliable = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Avaliable))); }
