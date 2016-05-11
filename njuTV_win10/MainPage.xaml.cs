@@ -53,6 +53,48 @@ namespace njuTV_win10
                 RequestedTheme = ElementTheme.Dark;
             }
             Splitter.IsPaneOpen = true;
+
+            TVInfoPanel.WebFetcher.PropertyChanged += WebFetcher_PropertyChanged;
+        }
+
+        private void WebFetcher_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            var sender_t = sender as TVurlFetcher;
+            if (sender_t.AnalyseState)
+            {
+                Player.Current.showInitInfo();
+            }
+            else
+            {
+                Player.Current.hideInitInfo();
+            }
+            if (e.PropertyName == "AnalyseState" && sender_t.CurrentWebState)
+            {
+                ErrorInfo.Visibility = Visibility.Collapsed;
+                if (!sender_t.AnalyseState)
+                {
+                    ErrorInfo.Text = "tv.nju.edu.cn的网页内容出现了较大变化，不能分析网址";
+                    ErrorInfo.Visibility = Visibility.Visible;
+                }
+            }
+            if (e.PropertyName == "CurrentWebState" && sender_t.InSchoolState)
+            {
+                ErrorInfo.Visibility = Visibility.Collapsed;
+                if (!sender_t.CurrentWebState)
+                {
+                    ErrorInfo.Text = "当前网络可能为校园无线，不能打开tv.nju.edu.cn 。 请尝试连接有线网或者由有线扩展出的无线网";
+                    ErrorInfo.Visibility = Visibility.Visible;
+                }
+            }
+            if (e.PropertyName== "InSchoolState")
+            {
+                ErrorInfo.Visibility = Visibility.Collapsed;
+                if (!sender_t.InSchoolState)
+                {
+                    ErrorInfo.Text = "当前网络不是校园网，不能读取tv.nju.edu.cn的数据";
+                    ErrorInfo.Visibility = Visibility.Visible;
+                }
+            }
         }
 
         private void RefreshButton_Click(object sender, RoutedEventArgs e)
@@ -110,6 +152,7 @@ namespace njuTV_win10
 
             TVInfoPanel.TVInfoItems.Add(new TVInfo() { Name = CurrentName, URL = InputURL.Text });
             AddButtonFlyout.Hide();
+            ErrorInfo.Visibility = Visibility.Collapsed;
         }
     }
 }

@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="9bb03da2-0ec7-403d-8921-7ba3fd4f07f3" Publisher="CN=njuee" Version="1.0.0.0" />
+  <Identity Name="56225BeanLiu.TVforwindowsstore" Publisher="CN=E6F96611-EA3B-4493-ABD7-240D787880FE" Version="2.3.2.0" />
   <mp:PhoneIdentity PhoneProductId="9bb03da2-0ec7-403d-8921-7ba3fd4f07f3" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
-    <DisplayName>njuTV_win10</DisplayName>
-    <PublisherDisplayName>njuee</PublisherDisplayName>
+    <DisplayName>南大TV for windows store</DisplayName>
+    <PublisherDisplayName>BeanLiu</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
   <Dependencies>
@@ -15,11 +15,20 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="njuTV_win10.App">
-      <uap:VisualElements DisplayName="njuTV_win10" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="njuTV_win10" BackgroundColor="transparent">
+      <uap:VisualElements DisplayName="南大TV for windows" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="观看学校提供的电视直播（网络环境有限制）。" BackgroundColor="transparent">
         <uap:LockScreen Notification="badge" BadgeLogo="Assets\Square48x48Logo.png" />
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png">
+          <uap:ShowNameOnTiles>
+            <uap:ShowOn Tile="wide310x150Logo" />
+          </uap:ShowNameOnTiles>
         </uap:DefaultTile>
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
+        <uap:InitialRotationPreference>
+          <uap:Rotation Preference="portrait" />
+          <uap:Rotation Preference="landscape" />
+          <uap:Rotation Preference="portraitFlipped" />
+          <uap:Rotation Preference="landscapeFlipped" />
+        </uap:InitialRotationPreference>
       </uap:VisualElements>
     </Application>
   </Applications>

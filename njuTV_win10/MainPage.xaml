@@ -59,7 +59,7 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <Grid>
+                    <Grid Margin="0,5">
                         <TextBlock Text="频道列表:" VerticalAlignment="Center" Margin="10,3" FontSize="20"/>
                         <Button Background="Transparent" RelativePanel.AlignRightWithPanel="True" VerticalAlignment="Center" HorizontalAlignment="Right">
                             <FontIcon Glyph="&#xE710;" FontSize="20"/>
@@ -101,7 +101,14 @@
                     </CommandBar>
                 </Grid>
             </SplitView.Pane>
-            <Frame Name="PlayerFrame"/>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Frame Name="PlayerFrame" Grid.RowSpan="2"/>
+                <TextBlock Name="ErrorInfo" FontSize="24" MaxWidth="480" TextWrapping="Wrap" Foreground="Crimson" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Grid>
         </SplitView>
     </Grid>
 

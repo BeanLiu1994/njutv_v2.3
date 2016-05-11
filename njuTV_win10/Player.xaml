@@ -479,7 +479,25 @@
     </Page.Resources>
 
     <Grid>
-        <StackPanel Name="InitialPanel"/>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="600"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="LogoImage.Source" Value="/Assets/620300.png"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <StackPanel Name="InitialPanel" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Image Name="LogoImage" Source="/Assets/Square310x310Logo.scale-200.png" Stretch="Uniform" MaxHeight="200"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <FontIcon Glyph="&#xE72B;"/>
+                <TextBlock Text="查看频道列表" FontSize="20" Margin="5"/>
+            </StackPanel>
+        </StackPanel>
         <MediaElement Name="MediaPlayer" AutoPlay="True" Source="{x:Bind Path=PlayingInfo.URL,Mode=OneWay}" AreTransportControlsEnabled="True" MediaFailed="MediaFailedEventHandler">
             <MediaElement.TransportControls>
                 <MediaTransportControls Name="MediaPlayerTransportControl" IsSeekEnabled="False" IsSeekBarVisible="False" IsZoomButtonVisible="False" IsZoomEnabled="False" IsCompact="True"  Style="{StaticResource MyMediaTransportControlStyle}"/>

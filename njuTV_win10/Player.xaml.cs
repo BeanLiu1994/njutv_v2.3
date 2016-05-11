@@ -32,6 +32,17 @@ namespace njuTV_win10
         {
             this.InitializeComponent();
             Current = this;
+            MediaPlayer.TransportControls.Visibility = Visibility.Collapsed;
+        }
+        public void showInitInfo()
+        {
+            InitialPanel.Visibility = Visibility.Visible;
+            return;
+        }
+        public void hideInitInfo()
+        {
+            InitialPanel.Visibility = Visibility.Collapsed;
+            return;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -44,6 +55,7 @@ namespace njuTV_win10
                 playinginfo = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PlayingInfo)));
 
+                MediaPlayer.TransportControls.Visibility = Visibility.Visible;
                 InitialPanel.Visibility = Visibility.Collapsed;
                 var view = ApplicationView.GetForCurrentView();
                 view.Title = playinginfo.Name;

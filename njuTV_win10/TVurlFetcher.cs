@@ -56,7 +56,7 @@ namespace njuTV_win10
     {
         public static bool VerifyURL(string InURL)
         {
-            var myMatch = Regex.Matches(InURL, @"[h,t,p,H,T,P]{4}://.*[m3u8,pls,flv,mp4,avi,wmv,mkv]");
+            var myMatch = Regex.Matches(InURL.ToLower(), @"[http,https]://.*[m3u8,pls,flv,mp4,avi,wmv,mkv]");
             if (myMatch.Count > 0)
                 return true;
             else
@@ -76,16 +76,20 @@ namespace njuTV_win10
             RefreshWebState();
         }
 
-        const string SchoolVerify = "http://tv.nju.edu.cn";
+        const string SchoolVerify = "http://p.nju.edu.cn";
         const string Source = "http://tv.nju.edu.cn";
         private static ConnectivityChecker InSchoolChecker = new ConnectivityChecker(SchoolVerify);
         private static ConnectivityChecker WebChecker = new ConnectivityChecker(Source);
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public bool CurrentWebState { get; private set; }
-        public bool InSchoolState { get; private set; }
-        public bool AnalyseState { get; private set; }
+        private bool currentwebstate;
+        public bool inschoolstate { get; private set; }
+        public bool analysestate { get; private set; }
+
+        public bool CurrentWebState { get { return currentwebstate; } private set { currentwebstate = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrentWebState))); } }
+        public bool InSchoolState { get { return inschoolstate; } private set { inschoolstate = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(InSchoolState))); } }
+        public bool AnalyseState { get { return analysestate; } private set { analysestate = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AnalyseState))); } }
         private string WebReturnedData { get; set; }
         public async Task<bool> RefreshWebState()
         {

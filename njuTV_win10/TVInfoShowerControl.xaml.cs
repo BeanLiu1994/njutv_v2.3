@@ -38,6 +38,7 @@ namespace njuTV_win10
             //GC.Collect();
             await WebFetcher.RefreshWebState();
         }
+
         private ObservableCollection<TVInfo> tvinfoitems;
         public ObservableCollection<TVInfo> TVInfoItems
         {
