@@ -43,10 +43,10 @@
                 <FontIcon Glyph="&#xE700;" HorizontalAlignment="Left" FontSize="20"/>
             </Button>
             <Grid Name="MyTitlePart" Grid.Column="1">
-                <Border Background="{ThemeResource SystemControlHighlightAccentBrush}">
+                <Border Background="{ThemeResource SystemControlBackgroundChromeMediumBrush}">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Name="TitleOfPlaying" VerticalAlignment="Center" Margin="8,0,0,0" FontSize="15" Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}"/>
-                        <TextBlock Text="南大TV" VerticalAlignment="Center" Margin="5,0,0,0"  FontSize="15" Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
+                        <TextBlock Name="TitleOfPlaying" VerticalAlignment="Center" Margin="8,0,0,0" FontSize="16"/>
+                        <TextBlock Text="南大TV" VerticalAlignment="Center" Margin="5,0,0,0"  FontSize="16"/>
                     </StackPanel>
                 </Border>
             </Grid>

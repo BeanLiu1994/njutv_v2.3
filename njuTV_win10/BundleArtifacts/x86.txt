@@ -1,2 +1,2 @@
-MainPackage=C:\Users\njuee\Documents\Visual Studio 2015\Projects\njuTV_win10\njuTV_win10\bin\x86\Release\njuTV_win10_2.3.1.0_x86.appx
-SymbolPackage=C:\Users\njuee\Documents\Visual Studio 2015\Projects\njuTV_win10\njuTV_win10\AppPackages\njuTV_win10_2.3.1.0_Test\njuTV_win10_2.3.1.0_x86.appxsym
+MainPackage=C:\Users\njuee\documents\visual studio 2015\Projects\njuTV_win10\njuTV_win10\bin\x86\Release\njuTV_win10_2.3.5.0_x86.appx
+SymbolPackage=C:\Users\njuee\documents\visual studio 2015\Projects\njuTV_win10\njuTV_win10\AppPackages\njuTV_win10_2.3.5.0_Test\njuTV_win10_2.3.5.0_x86.appxsym

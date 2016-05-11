@@ -18,6 +18,6 @@
         </DataTemplate>
     </UserControl.Resources>
     <Grid>
-        <ListView Name="NoPreview" ItemTemplate="{StaticResource TVInfoTemplate}" ItemsSource="{x:Bind Path=TVInfoItems,Mode=OneWay}" ItemClick="ItemClicked" SelectionMode="None" IsItemClickEnabled="True" ScrollViewer.VerticalScrollBarVisibility="Hidden" />
+        <ListView Name="NoPreview" ItemTemplate="{StaticResource TVInfoTemplate}" ItemsSource="{x:Bind Path=TVInfoItems,Mode=OneWay}" ItemClick="ItemClicked" IsItemClickEnabled="True" ScrollViewer.VerticalScrollBarVisibility="Hidden" />
     </Grid>
 </UserControl>

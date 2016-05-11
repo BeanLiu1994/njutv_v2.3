@@ -1,2 +1,2 @@
-MainPackage=C:\Users\njuee\Documents\Visual Studio 2015\Projects\njuTV_win10\njuTV_win10\bin\ARM\Release\Upload\njuTV_win10_2.3.1.0_ARM.appx
-ResourcePack=C:\Users\njuee\Documents\Visual Studio 2015\Projects\njuTV_win10\njuTV_win10\_scale-100.appx
+MainPackage=C:\Users\njuee\documents\visual studio 2015\Projects\njuTV_win10\njuTV_win10\bin\ARM\Release\Upload\njuTV_win10_2.3.5.0_ARM.appx
+ResourcePack=C:\Users\njuee\documents\visual studio 2015\Projects\njuTV_win10\njuTV_win10\_scale-100.appx
