@@ -9,6 +9,7 @@ using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Core;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -83,6 +84,9 @@ namespace njuTV_win10
                     CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
 
                     rootFrame.Navigate(typeof(MainPage), e.Arguments);
+
+                    var view = ApplicationView.GetForCurrentView();
+                    view.SetPreferredMinSize(new Size(300, 300));
                 }
                 // 确保当前窗口处于活动状态
                 Window.Current.Activate();
