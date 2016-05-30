@@ -33,7 +33,29 @@ namespace njuTV_win10
             this.InitializeComponent();
             Current = this;
             MediaPlayer.TransportControls.Visibility = Visibility.Collapsed;
+            CoreWindow.GetForCurrentThread().KeyUp += Player_KeyUp;
+            MediaPlayerTransportControl.GotFocus += MediaPlayerTransportControl_GotFocus;
         }
+
+        private void MediaPlayerTransportControl_GotFocus(object sender, RoutedEventArgs e)
+        {
+            FocusBlock.Focus(FocusState.Pointer);
+        }
+
+        private void Player_KeyUp(CoreWindow sender, KeyEventArgs args)
+        {
+            switch (args.VirtualKey)
+            {
+                case Windows.System.VirtualKey.Up:
+                    FullScreen(true); break;
+                case Windows.System.VirtualKey.Escape:
+                case Windows.System.VirtualKey.Down:
+                    FullScreen(false); break;
+                case Windows.System.VirtualKey.Space:
+                    PlayingStatusChange(); break;
+            }
+        }
+
         public void showInitInfo()
         {
             InitialPanel.Visibility = Visibility.Visible;
@@ -43,6 +65,40 @@ namespace njuTV_win10
         {
             InitialPanel.Visibility = Visibility.Collapsed;
             return;
+        }
+
+        public void FullScreen(bool? status = null)
+        {
+            if (PlayingInfo != null && MainPage.Current?.IsPaneOpen() == false)
+                if (!status.HasValue)
+                    MediaPlayer.IsFullWindow = !MediaPlayer.IsFullWindow;
+                else
+                    MediaPlayer.IsFullWindow = status.Value;
+        }
+        public void PlayingStatusChange(MediaElementState? status = null)
+        {
+            if (!status.HasValue)
+            {
+                switch (MediaPlayer.CurrentState)
+                {
+                    case MediaElementState.Playing:
+                        MediaPlayer.Pause(); break;
+                    case MediaElementState.Paused:
+                        MediaPlayer.Play(); break;
+                }
+            }
+            else
+            {
+                switch (status)
+                {
+                    case MediaElementState.Playing:
+                        MediaPlayer.Play(); break;
+                    case MediaElementState.Paused:
+                        MediaPlayer.Pause(); break;
+                    case MediaElementState.Stopped:
+                        MediaPlayer.Stop(); break;
+                }
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -61,7 +117,7 @@ namespace njuTV_win10
                 view.Title = playinginfo.Name;
                 MainPage.Current?.SetTitleOfPlaying(playinginfo.Name);
                 if (value.Avaliable.HasValue)
-                    if(value.Avaliable.Value)
+                    if (value.Avaliable.Value)
                     {
                         ErrorPanel.Visibility = Visibility.Collapsed;
                         MediaPlayer.Play();
@@ -72,19 +128,31 @@ namespace njuTV_win10
                     }
             }
         }
-        
+
         private void MediaFailedEventHandler(object sender, ExceptionRoutedEventArgs e)
         {
             ErrorPanel.Visibility = Visibility.Visible;
             var currentFetcher = TVInfoShowerControl.Current.WebFetcher;
-            if (!currentFetcher.InSchoolState)
+            if (PlayingInfo.InSchoolTv)
             {
-                ErrorInfo.Text = "没有校园网,无法读取 tv.nju.edu.cn ";
+                if (!currentFetcher.InSchoolState)
+                {
+                    ErrorInfo.Text = "没有校园网,无法读取 tv.nju.edu.cn ";
+                }
+                else
+                {
+                    ErrorInfo.Text = "当前视频源不可用 请尝试刷新或等待学校修复";
+                }
             }
             else
             {
-                ErrorInfo.Text = "当前视频源不可用 请尝试刷新或等待学校修复";
+                ErrorInfo.Text = "当前视频源不可用 请尝试刷新或输入新的视频源";
             }
+        }
+
+        private void EnterFullScreen(object sender, DoubleTappedRoutedEventArgs e)
+        {
+            FullScreen();
         }
     }
 }

@@ -498,9 +498,11 @@
                 <TextBlock Text="查看频道列表" FontSize="20" Margin="5"/>
             </StackPanel>
         </StackPanel>
-        <MediaElement Name="MediaPlayer" AutoPlay="True" Source="{x:Bind Path=PlayingInfo.URL,Mode=OneWay}" AreTransportControlsEnabled="True" MediaFailed="MediaFailedEventHandler">
+        <TextBlock Name="FocusBlock"/>
+        <MediaElement Name="MediaPlayer" AutoPlay="True" Source="{x:Bind Path=PlayingInfo.URL,Mode=OneWay}" AreTransportControlsEnabled="True"
+                      MediaFailed="MediaFailedEventHandler">
             <MediaElement.TransportControls>
-                <MediaTransportControls Name="MediaPlayerTransportControl" IsSeekEnabled="False" IsSeekBarVisible="False" IsZoomButtonVisible="False" IsZoomEnabled="False" IsCompact="True"  Style="{StaticResource MyMediaTransportControlStyle}"/>
+                <MediaTransportControls Name="MediaPlayerTransportControl" IsSeekEnabled="False" IsSeekBarVisible="False" IsZoomButtonVisible="False" IsZoomEnabled="False" IsCompact="True"  Style="{StaticResource MyMediaTransportControlStyle}"  DoubleTapped="EnterFullScreen"/>
             </MediaElement.TransportControls>
         </MediaElement>
         <StackPanel Name="ErrorPanel" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">

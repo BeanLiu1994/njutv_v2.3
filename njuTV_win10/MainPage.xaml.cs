@@ -7,6 +7,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI;
+using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -38,7 +39,30 @@ namespace njuTV_win10
             
             Current = this;
             PlayerFrame.Navigate(typeof(Player));
+            Splitter.PaneClosed += Splitter_PaneClosed;
+            CoreWindow.GetForCurrentThread().KeyUp += MainPage_KeyUp;
         }
+
+        private void MainPage_KeyUp(CoreWindow sender, KeyEventArgs args)
+        {
+            switch(args.VirtualKey)
+            { 
+                case Windows.System.VirtualKey.Right:
+                    SetPaneOpen(true); 
+                    TVInfoPanel.Focus(FocusState.Pointer);
+                    break;
+                case Windows.System.VirtualKey.Left:
+                    SetPaneOpen(false);
+                    PlayerFrame.Focus(FocusState.Pointer);
+                    break;
+            }
+        }
+
+        private void Splitter_PaneClosed(SplitView sender, object args)
+        {
+            PlayerFrame.Focus(FocusState.Pointer);
+        }
+
         public void LoadAllSettings()
         {
             var SS_T = new SettingSaver_Local();
@@ -129,6 +153,15 @@ namespace njuTV_win10
         public void SetTitleOfPlaying(string info)
         {
             TitleOfPlaying.Text = info;
+        }
+
+        public void SetPaneOpen(bool isopen)
+        {
+            Splitter.IsPaneOpen = isopen;
+        }
+        public bool IsPaneOpen()
+        {
+            return Splitter.IsPaneOpen;
         }
 
         private int i = 1;

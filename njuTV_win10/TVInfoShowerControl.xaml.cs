@@ -30,6 +30,7 @@ namespace njuTV_win10
             Current = this;
             WebFetcher = new TVurlFetcher();
             TVInfoItems = WebFetcher.TVFetchedInfo;
+            TVInfoItems.CollectionChanged += TVInfoItems_CollectionChanged;
             Refresh();
         }
 
@@ -56,7 +57,7 @@ namespace njuTV_win10
         public ObservableCollection<TVInfo> TVInfoItems
         {
             get { return tvinfoitems; }
-            set { tvinfoitems = value;PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(TVInfoItems))); ItemsSize = tvinfoitems.Count; }
+            set { tvinfoitems = value;PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(TVInfoItems))); }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -67,6 +68,11 @@ namespace njuTV_win10
             var ItemIndex = container.Items.IndexOf(e.ClickedItem);
             var PlayerParam = TVInfoItems.ElementAt(ItemIndex);
             Player.Current.PlayingInfo = PlayerParam;
+        }
+
+        private void TVInfoItems_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            ItemsSize = tvinfoitems.Count;
         }
 
         private void ControlLoaded(object sender, RoutedEventArgs e)
@@ -121,6 +127,14 @@ namespace njuTV_win10
         {
             TVInfoItems.Remove(NowDataContext);
             SaveContent();
+        }
+
+        private void ListGotFocus(object sender, RoutedEventArgs e)
+        {
+            if(NoPreview.Items.Count>0)
+            {
+                
+            }
         }
     }
 }
