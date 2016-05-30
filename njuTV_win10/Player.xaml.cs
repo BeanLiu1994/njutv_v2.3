@@ -47,13 +47,23 @@ namespace njuTV_win10
             switch (args.VirtualKey)
             {
                 case Windows.System.VirtualKey.Up:
-                    FullScreen(true); break;
+                    if (!MainPage.Current.IsPaneOpen()) 
+                        FullScreen(true);
+                    break;
                 case Windows.System.VirtualKey.Escape:
                 case Windows.System.VirtualKey.Down:
-                    FullScreen(false);
-                    MainPage.Current?.SetPlayerFocus(); break;
+                    if (!MainPage.Current.IsPaneOpen())
+                    {
+                        FullScreen(false);
+                        MainPage.Current?.SetPlayerFocus();
+                    }
+                    break;
                 case Windows.System.VirtualKey.Space:
-                    PlayingStatusChange(); break;
+                    if (!MainPage.Current.IsPaneOpen())
+                    {
+                        PlayingStatusChange();
+                    }
+                    break;
             }
         }
 
