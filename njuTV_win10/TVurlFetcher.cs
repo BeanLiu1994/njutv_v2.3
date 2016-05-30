@@ -51,6 +51,13 @@ namespace njuTV_win10
             get { return avaliable; }
             set { avaliable = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Avaliable))); }
         }
+
+        private bool inschooltv;
+        public bool InSchoolTv
+        {
+            get { return inschooltv; }
+            set { inschooltv = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(InSchoolTv))); }
+        }
     }
     public class TVurlFetcher:INotifyPropertyChanged
     {
@@ -73,7 +80,7 @@ namespace njuTV_win10
         public TVurlFetcher()
         {
             TVFetchedInfo = new ObservableCollection<TVInfo>();
-            RefreshWebState();
+            //RefreshWebState();
         }
 
         const string SchoolVerify = "http://p.nju.edu.cn";
@@ -110,7 +117,7 @@ namespace njuTV_win10
                     temp = Regex.Replace(temp, @""".*>\w{1,5}</a>\s*<a\s*href=""", @" http://tv.nju.edu.cn/");
                     temp = Regex.Replace(temp, @""".*>\w{1,5}</a>\s*</li>", @"");
                     string[] s = temp.Split(new char[] { ' ' });
-                    TVFetchedInfo.Add(new TVInfo() { Name = s[0], URL = s[2] });
+                    TVFetchedInfo.Add(new TVInfo() { Name = s[0], URL = s[2] , InSchoolTv = true});
                 }
                 Debug.WriteLine("  [处理结束]");
                 if (TVFetchedInfo.Count == 0)

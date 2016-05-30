@@ -30,20 +30,33 @@ namespace njuTV_win10
             Current = this;
             WebFetcher = new TVurlFetcher();
             TVInfoItems = WebFetcher.TVFetchedInfo;
+            Refresh();
         }
 
         public async void Refresh()
         {
             TVInfoItems.Clear();
             //GC.Collect();
-            await WebFetcher.RefreshWebState();
+            bool Hresult = await WebFetcher.RefreshWebState();
+            if (Hresult)
+                Debug.WriteLine("读取成功");
+            else
+                Debug.WriteLine("读取失败");
+            LoadContent();
+        }
+
+        private int itemssize;
+        public int ItemsSize
+        {
+            get { return itemssize; }
+            set { itemssize = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ItemsSize))); }
         }
 
         private ObservableCollection<TVInfo> tvinfoitems;
         public ObservableCollection<TVInfo> TVInfoItems
         {
             get { return tvinfoitems; }
-            set { tvinfoitems = value;PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(TVInfoItems))); }
+            set { tvinfoitems = value;PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(TVInfoItems))); ItemsSize = tvinfoitems.Count; }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -59,6 +72,55 @@ namespace njuTV_win10
         private void ControlLoaded(object sender, RoutedEventArgs e)
         {
             Debug.WriteLine("加载了列表框架");
+        }
+
+        public void LoadContent()
+        {
+            var saver = new SettingSaver_Local();
+            string[] savedTVName = null;
+            string[] savedTVURL = null;
+            saver.GetRecordObject("TVNameSaved", ref savedTVName);
+            saver.GetRecordObject("TVURLSaved", ref savedTVURL);
+            if (savedTVName != null)
+            {
+                for (int i = 0; i < savedTVName.Count(); ++i)
+                {
+                    TVInfoItems.Add(new TVInfo() { Name = savedTVName.ElementAt(i), URL = savedTVURL.ElementAt(i), InSchoolTv = false });
+                }
+            }
+        }
+        public void SaveContent()
+        {
+            var DataToSave = TVInfoItems.Where((m)=>!m.InSchoolTv);
+            var saver = new SettingSaver_Local();
+            if (DataToSave.Count() != 0)
+            {
+                saver.AlterRecordObject("TVNameSaved", DataToSave.Select((m) => m.Name).ToArray());
+                saver.AlterRecordObject("TVURLSaved", DataToSave.Select((m) => m.URL).ToArray());
+            }
+            else
+            {
+                saver.DeleteRecordObject("TVNameSaved");
+                saver.DeleteRecordObject("TVURLSaved");
+            }
+        }
+
+        private TVInfo NowDataContext;
+        private void ItemMenuFlyout(object sender, RightTappedRoutedEventArgs e)
+        {
+            FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);
+            NowDataContext = (sender as ShowOneItem).DataContext as TVInfo;
+        }
+        private void ItemMenuFlyout(object sender, HoldingRoutedEventArgs e)
+        {
+            FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);
+            NowDataContext = (sender as ShowOneItem).DataContext as TVInfo;
+        }
+
+        private void DeleteItem_Click(object sender, RoutedEventArgs e)
+        {
+            TVInfoItems.Remove(NowDataContext);
+            SaveContent();
         }
     }
 }

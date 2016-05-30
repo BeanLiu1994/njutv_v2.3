@@ -96,6 +96,7 @@
                         <local:TVInfoShowerControl x:Name="TVInfoPanel" Grid.Row="1"/>
                     </Grid>
                     <CommandBar Name="MenuCommandBar" Grid.Row="2" Background="{ThemeResource SystemControlBackgroundChromeMediumLowBrush}" ClosedDisplayMode="Minimal">
+                        <AppBarButton Label=""/>
                         <AppBarButton Icon="View" Label="主题色" Click="ThemeButton_Click"/>
                         <AppBarButton Icon="Refresh" Label="刷新" Click="RefreshButton_Click" Loaded="PageLoaded"/>
                     </CommandBar>

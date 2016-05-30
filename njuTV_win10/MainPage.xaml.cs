@@ -150,7 +150,8 @@ namespace njuTV_win10
                 CurrentName = "Item " + i++.ToString();
             }
 
-            TVInfoPanel.TVInfoItems.Add(new TVInfo() { Name = CurrentName, URL = InputURL.Text });
+            TVInfoPanel.TVInfoItems.Add(new TVInfo() { Name = CurrentName, URL = InputURL.Text , InSchoolTv = false });
+            TVInfoPanel.SaveContent();
             AddButtonFlyout.Hide();
             ErrorInfo.Visibility = Visibility.Collapsed;
         }
