@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI;
@@ -48,19 +49,30 @@ namespace njuTV_win10
             switch(args.VirtualKey)
             { 
                 case Windows.System.VirtualKey.Right:
-                    SetPaneOpen(true); 
-                    TVInfoPanel.Focus(FocusState.Pointer);
+                    if (!Player.Current.IsFullScreen())
+                    {
+                        SetPaneOpen(true);
+                        TVInfoPanel.Focus(FocusState.Pointer);
+                    }
                     break;
                 case Windows.System.VirtualKey.Left:
                     SetPaneOpen(false);
-                    PlayerFrame.Focus(FocusState.Pointer);
+                    SetPlayerFocus();
+                    break;
+                case Windows.System.VirtualKey.Escape:
+                    SetPlayerFocus();
                     break;
             }
         }
 
-        private void Splitter_PaneClosed(SplitView sender, object args)
+        public void SetPlayerFocus()
         {
             PlayerFrame.Focus(FocusState.Pointer);
+        }
+
+        private void Splitter_PaneClosed(SplitView sender, object args)
+        {
+            SetPlayerFocus();
         }
 
         public void LoadAllSettings()

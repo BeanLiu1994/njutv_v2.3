@@ -128,13 +128,5 @@ namespace njuTV_win10
             TVInfoItems.Remove(NowDataContext);
             SaveContent();
         }
-
-        private void ListGotFocus(object sender, RoutedEventArgs e)
-        {
-            if(NoPreview.Items.Count>0)
-            {
-                
-            }
-        }
     }
 }

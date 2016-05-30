@@ -50,7 +50,8 @@ namespace njuTV_win10
                     FullScreen(true); break;
                 case Windows.System.VirtualKey.Escape:
                 case Windows.System.VirtualKey.Down:
-                    FullScreen(false); break;
+                    FullScreen(false);
+                    MainPage.Current?.SetPlayerFocus(); break;
                 case Windows.System.VirtualKey.Space:
                     PlayingStatusChange(); break;
             }
@@ -65,6 +66,11 @@ namespace njuTV_win10
         {
             InitialPanel.Visibility = Visibility.Collapsed;
             return;
+        }
+
+        public bool IsFullScreen()
+        {
+            return MediaPlayer.IsFullWindow;
         }
 
         public void FullScreen(bool? status = null)
