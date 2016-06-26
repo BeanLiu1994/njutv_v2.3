@@ -83,31 +83,54 @@ namespace njuTV_win10
         public void LoadContent()
         {
             var saver = new SettingSaver_Local();
-            string[] savedTVName = null;
-            string[] savedTVURL = null;
-            saver.GetRecordObject("TVNameSaved", ref savedTVName);
-            saver.GetRecordObject("TVURLSaved", ref savedTVURL);
-            if (savedTVName != null)
-            {
-                for (int i = 0; i < savedTVName.Count(); ++i)
+            try
+            { 
+                string[] savedTVName = null;
+                string[] savedTVURL = null;
+                saver.GetRecordObject("TVNameSaved", ref savedTVName);
+                saver.GetRecordObject("TVURLSaved", ref savedTVURL);
+                if (savedTVName != null && savedTVURL != null)
                 {
-                    TVInfoItems.Add(new TVInfo() { Name = savedTVName.ElementAt(i), URL = savedTVURL.ElementAt(i), InSchoolTv = false });
+                    int length = savedTVName.Count();
+                    if(savedTVURL.Count()==length)
+                        for (int i = 0; i < length; ++i)
+                        {
+                            TVInfoItems.Add(new TVInfo() { Name = savedTVName.ElementAt(i), URL = savedTVURL.ElementAt(i), InSchoolTv = false });
+                        }
                 }
+            }
+            catch (Exception e)
+            {
+                saver.DeleteRecordObject("TVNameSaved");
+                saver.DeleteRecordObject("TVURLSaved");
+                Debug.WriteLine(e.Message);
+                Debug.WriteLine("Load Failed");
             }
         }
         public void SaveContent()
         {
             var DataToSave = TVInfoItems.Where((m)=>!m.InSchoolTv);
             var saver = new SettingSaver_Local();
-            if (DataToSave.Count() != 0)
+
+            try
             {
-                saver.AlterRecordObject("TVNameSaved", DataToSave.Select((m) => m.Name).ToArray());
-                saver.AlterRecordObject("TVURLSaved", DataToSave.Select((m) => m.URL).ToArray());
+                if (DataToSave.Count() != 0)
+                {
+                    saver.AlterRecordObject("TVNameSaved", DataToSave.Select((m) => m.Name).ToArray());
+                    saver.AlterRecordObject("TVURLSaved", DataToSave.Select((m) => m.URL).ToArray());
+                }
+                else
+                {
+                    saver.DeleteRecordObject("TVNameSaved");
+                    saver.DeleteRecordObject("TVURLSaved");
+                }
             }
-            else
+            catch(Exception e)
             {
                 saver.DeleteRecordObject("TVNameSaved");
                 saver.DeleteRecordObject("TVURLSaved");
+                Debug.WriteLine(e.Message);
+                Debug.WriteLine("Save Failed");
             }
         }
 

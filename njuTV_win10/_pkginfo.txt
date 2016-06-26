@@ -1,1 +1,1 @@
-C:\Users\njuee_kgom\Documents\Visual Studio 2015\Projects\njuTV_win10\njuTV_win10\AppPackages\njuTV_win10_2.3.11.0\njuTV_win10_2.3.11.0_x86_x64_arm.appxbundle
+C:\Users\njuee_kgom\Documents\Visual Studio 2015\Projects\njuTV_win10\njuTV_win10\AppPackages\njuTV_win10_2.3.12.0\njuTV_win10_2.3.12.0_x86_x64_arm.appxbundle
