@@ -10,7 +10,11 @@
     <UseEmulator>true</UseEmulator>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
-    <DeviceId>98CD6FA8-9114-4179-ACA3-38E5D23C77EE</DeviceId>
-    <UseEmulator>false</UseEmulator>
+    <DeviceId>F957827B-6FC8-4538-A5BA-3B3807152A56</DeviceId>
+    <UseEmulator>true</UseEmulator>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DeviceId>F957827B-6FC8-4538-A5BA-3B3807152A56</DeviceId>
+    <UseEmulator>true</UseEmulator>
   </PropertyGroup>
 </Project>
