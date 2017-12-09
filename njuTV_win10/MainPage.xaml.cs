@@ -106,29 +106,23 @@ namespace njuTV_win10
             }
             if (e.PropertyName == "AnalyseState" && sender_t.CurrentWebState)
             {
-                ErrorInfo.Visibility = Visibility.Collapsed;
                 if (!sender_t.AnalyseState)
                 {
-                    ErrorInfo.Text = "tv.nju.edu.cn的网页内容出现了较大变化，不能分析网址";
-                    ErrorInfo.Visibility = Visibility.Visible;
+                    ErrorInfo.Show("tv.nju.edu.cn的网页内容出现了较大变化，不能分析网址"); 
                 }
             }
             if (e.PropertyName == "CurrentWebState" && sender_t.InSchoolState)
             {
-                ErrorInfo.Visibility = Visibility.Collapsed;
                 if (!sender_t.CurrentWebState)
                 {
-                    ErrorInfo.Text = "当前网络可能为校园无线，不能打开tv.nju.edu.cn 。 请尝试连接有线网或者由有线扩展出的无线网";
-                    ErrorInfo.Visibility = Visibility.Visible;
+                    ErrorInfo.Show("当前网络可能为校园无线，不能打开tv.nju.edu.cn 。 请尝试连接有线网或者由有线扩展出的无线网", 10000);
                 }
             }
             if (e.PropertyName== "InSchoolState")
             {
-                ErrorInfo.Visibility = Visibility.Collapsed;
                 if (!sender_t.InSchoolState)
                 {
-                    ErrorInfo.Text = "当前网络不是校园网，不能读取tv.nju.edu.cn的数据";
-                    ErrorInfo.Visibility = Visibility.Visible;
+                    ErrorInfo.Show("当前网络不是校园网，不能读取tv.nju.edu.cn的数据");
                 }
             }
         }
@@ -198,7 +192,6 @@ namespace njuTV_win10
             TVInfoPanel.TVInfoItems.Add(new TVInfo() { Name = CurrentName, URL = InputURL.Text , InSchoolTv = false });
             TVInfoPanel.SaveContent();
             AddButtonFlyout.Hide();
-            ErrorInfo.Visibility = Visibility.Collapsed;
         }
     }
 }

@@ -3,10 +3,13 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:njuTV_win10"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d" Background="{ThemeResource SystemControlBackgroundChromeMediumBrush}">
-
+    mc:Ignorable="d" Background="{ThemeResource SystemControlAcrylicWindowBrush}">
+    <Page.Resources>
+        <AcrylicBrush x:Key="BG" BackgroundSource="Backdrop" FallbackColor="DarkGray" TintColor="Purple" TintOpacity="0.08"/>
+    </Page.Resources>
     <Grid>
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="SizeChange">
@@ -65,7 +68,7 @@
                             <FontIcon Glyph="&#xE710;" FontSize="20"/>
                             <Button.Flyout>
                                 <Flyout x:Name="AddButtonFlyout">
-                                    <Grid>
+                                    <Grid Background="{StaticResource BG}">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto"/>
                                             <RowDefinition Height="Auto"/>
@@ -107,12 +110,9 @@
                 </Grid>
             </SplitView.Pane>
             <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Frame Name="PlayerFrame" Grid.RowSpan="2"/>
-                <TextBlock Name="ErrorInfo" FontSize="24" MaxWidth="480" TextWrapping="Wrap" Foreground="Crimson" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Frame Name="PlayerFrame"/>
+                <controls:InAppNotification x:Name="ErrorInfo" VerticalAlignment="Bottom"/>
+                <!--<TextBlock Name="ErrorInfo" FontSize="24" MaxWidth="480" TextWrapping="Wrap" Foreground="Crimson" HorizontalAlignment="Center" VerticalAlignment="Center"/>-->
             </Grid>
         </SplitView>
     </Grid>

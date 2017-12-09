@@ -378,7 +378,7 @@
                                     <Grid.RenderTransform>
                                         <TranslateTransform/>
                                     </Grid.RenderTransform>
-                                    <Border x:Name="ErrorBorder" Background="{ThemeResource SystemControlBackgroundChromeMediumBrush}" Grid.ColumnSpan="3" HorizontalAlignment="Center" Height="96" Visibility="Collapsed" Width="320">
+                                    <Border x:Name="ErrorBorder" Background="Transparent" Grid.ColumnSpan="3" HorizontalAlignment="Center" Height="96" Visibility="Collapsed" Width="320">
                                         <TextBlock x:Name="ErrorTextBlock" Margin="12" Style="{StaticResource MediaTextBlockStyle}" TextWrapping="WrapWholeWords"/>
                                     </Border>
                                     <Border x:Name="MediaTransportControls_Timeline_Border" Grid.Column="1" Grid.Row="1">
